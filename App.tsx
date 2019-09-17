@@ -1,19 +1,13 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer } from "react-navigation";
+import { createBottomTabNavigator } from "react-navigation-tabs";
+import Price from "./components/Price";
+import Margin from "./components/Margin";
+import Cost from "./components/Cost";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const navigator = createBottomTabNavigator({
+  Price,
+  Margin,
+  Cost
 });
+
+export default createAppContainer(navigator);
