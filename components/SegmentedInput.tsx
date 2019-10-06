@@ -3,14 +3,24 @@ import SegmentedControlIOS from "@react-native-community/segmented-control";
 import { StyleSheet, View, TextInput } from "react-native";
 
 type Props = {
-  segments: Array<{ label: string; value: string }>;
+  segments: Array<{ key: string; label: string; value: string }>;
   selected: number;
   onSelection: (number) => void;
-  onValueChange: (newValue: { label: string; value: string }) => void;
+  onValueChange: (newValue: { key: string; value: string }) => void;
+  onFocus: (key) => void;
+  onEndEditing: (key) => void;
 };
 
 export default function SegmentedInput(props: Props): ReactElement {
-  const { segments, selected, onSelection, onValueChange } = props;
+  const {
+    segments,
+    selected,
+    onSelection,
+    onValueChange,
+    onFocus,
+    onEndEditing
+  } = props;
+
   return (
     <View style={styles.container}>
       <SegmentedControlIOS
@@ -19,13 +29,18 @@ export default function SegmentedInput(props: Props): ReactElement {
         onChange={event => onSelection(event.nativeEvent.selectedSegmentIndex)}
       />
       <View style={styles.row}>
-        {segments.map(({ label, value }, i) => (
+        {segments.map(({ key, label, value }, i) => (
           <TextInput
             style={styles.input}
             value={value}
             key={label}
-            onChangeText={newText => onValueChange({ label, value: newText })}
-            onFocus={() => onSelection(i)}
+            onChangeText={newValue => onValueChange({ key, value: newValue })}
+            keyboardType="numeric"
+            onFocus={() => {
+              onSelection(i);
+              onFocus(key);
+            }}
+            onEndEditing={() => onEndEditing(key)}
           />
         ))}
       </View>

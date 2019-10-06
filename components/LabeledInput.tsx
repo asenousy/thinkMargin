@@ -5,14 +5,23 @@ type Props = {
   label: string;
   value: string;
   onChange: (string) => void;
+  onEndEditing: () => void;
+  onFocus: () => void;
 };
 
 export default function LabeledInput(props: Props): ReactElement {
-  const { label, value, onChange } = props;
+  const { label, value, onChange, onEndEditing, onFocus } = props;
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput style={styles.input} value={value} onChangeText={onChange} />
+      <TextInput
+        style={styles.input}
+        value={value}
+        onChangeText={onChange}
+        keyboardType="numeric"
+        onEndEditing={onEndEditing}
+        onFocus={onFocus}
+      />
     </View>
   );
 }
