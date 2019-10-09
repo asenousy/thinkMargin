@@ -4,10 +4,17 @@ import PricePage from "./components/PricePage";
 import MarginPage from "./components/MarginPage";
 import CostPage from "./components/CostPage";
 
-const navigator = createBottomTabNavigator({
-  Price: PricePage,
-  Margin: MarginPage,
-  Cost: CostPage
-});
+const navigator = createBottomTabNavigator(
+  {
+    Price: PricePage,
+    Margin: MarginPage,
+    Cost: CostPage
+  },
+  {
+    tabBarOptions: {
+      keyboardHidesTabBar: false
+    }
+  }
+);
 
 export default createAppContainer(navigator);

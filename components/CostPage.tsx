@@ -14,61 +14,54 @@ function format(figure: string | number) {
 }
 
 function reducer(state, { type, payload }) {
-  let newState;
   switch (type) {
     case "UPDATE_PRICE_SEGMENT":
-      newState = {
+      return {
         ...state,
         priceSegment: payload
       };
-      break;
 
     case "UPDATE_MARGIN_SEGMENT":
-      newState = {
+      return {
         ...state,
         marginSegment: payload
       };
-      break;
 
     case "RESET":
-      newState = {
+      return {
         ...state,
         figures: {
           ...state.figures,
           [payload]: ""
         }
       };
-      break;
 
     case "UPDATE":
-      newState = {
+      return {
         ...state,
         figures: {
           ...state.figures,
           ...payload
         }
       };
-      break;
 
     case "CROP":
-      newState = {
+      return {
         ...state,
         figures: {
           ...state.figures,
           [payload]: state.figures[payload].slice(0, -3)
         }
       };
-      break;
 
     case "FORMAT":
-      newState = {
+      return {
         ...state,
         figures: {
           ...state.figures,
           [payload]: format(state.figures[payload])
         }
       };
-      break;
 
     case "CALCULATE":
       let { vat, margin, profit, priceExcVAT, priceIncVAT } = state.figures;
@@ -85,7 +78,7 @@ function reducer(state, { type, payload }) {
       }
       const cost = priceExcVAT - profit;
 
-      newState = {
+      return {
         ...state,
         figures: {
           ...state.figures,
@@ -96,13 +89,11 @@ function reducer(state, { type, payload }) {
           cost: format(cost)
         }
       };
-      break;
 
     default:
       throw new Error("wrong action type");
       break;
   }
-  return newState;
 }
 
 const CostPage: FC = () => {

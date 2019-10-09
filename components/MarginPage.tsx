@@ -14,54 +14,48 @@ function format(figure: string | number) {
 }
 
 function reducer(state, { type, payload }) {
-  let newState;
   switch (type) {
     case "UPDATE_SEGMENT":
-      newState = {
+      return {
         ...state,
         segment: payload
       };
-      break;
 
     case "RESET":
-      newState = {
+      return {
         ...state,
         figures: {
           ...state.figures,
           [payload]: ""
         }
       };
-      break;
 
     case "UPDATE":
-      newState = {
+      return {
         ...state,
         figures: {
           ...state.figures,
           ...payload
         }
       };
-      break;
 
     case "CROP":
-      newState = {
+      return {
         ...state,
         figures: {
           ...state.figures,
           [payload]: state.figures[payload].slice(0, -3)
         }
       };
-      break;
 
     case "FORMAT":
-      newState = {
+      return {
         ...state,
         figures: {
           ...state.figures,
           [payload]: format(state.figures[payload])
         }
       };
-      break;
 
     case "CALCULATE":
       let { vat, cost, priceExcVAT, priceIncVAT } = state.figures;
@@ -74,7 +68,7 @@ function reducer(state, { type, payload }) {
       const profit = priceExcVAT - cost;
       const margin = (profit / priceExcVAT) * 100;
 
-      newState = {
+      return {
         ...state,
         figures: {
           ...state.figures,
@@ -84,13 +78,11 @@ function reducer(state, { type, payload }) {
           profit: format(profit)
         }
       };
-      break;
 
     default:
       throw new Error("wrong action type");
       break;
   }
-  return newState;
 }
 
 const MarginPage: FC = () => {

@@ -21,6 +21,7 @@ export default function LabeledInput(props: Props): ReactElement {
         keyboardType="numeric"
         onEndEditing={onEndEditing}
         onFocus={onFocus}
+        clearButtonMode={"while-editing"}
       />
     </View>
   );
