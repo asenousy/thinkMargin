@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import SegmentedControlIOS from "@react-native-community/segmented-control";
+import SegmentedControlTab from "react-native-segmented-control-tab";
 import { StyleSheet, View, TextInput } from "react-native";
 
 type Props = {
@@ -23,10 +23,10 @@ export default function SegmentedInput(props: Props): ReactElement {
 
   return (
     <View style={styles.container}>
-      <SegmentedControlIOS
+      <SegmentedControlTab
         values={segments.map(segment => segment.label)}
         selectedIndex={selected}
-        onChange={event => onSelection(event.nativeEvent.selectedSegmentIndex)}
+        onTabPress={newSelected => onSelection(newSelected)}
       />
       <View style={styles.row}>
         {segments.map(({ key, label, value }, i) => (
