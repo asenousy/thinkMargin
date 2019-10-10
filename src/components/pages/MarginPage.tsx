@@ -9,97 +9,11 @@ import LabeledInput from "../LabeledInput";
 import LabeledOutput from "../LabeledOutput";
 import SegmentedInput from "../SegmentedInput";
 import Footer from "../Footer";
-
-function format(figure: string | number) {
-  return +figure == 0 ? "0" : (+figure).toFixed(2);
-}
-
-function reducer(state, { type, payload }) {
-  switch (type) {
-    case "UPDATE_SEGMENT":
-      return {
-        ...state,
-        segment: payload
-      };
-
-    case "RESET":
-      return {
-        ...state,
-        figures: {
-          ...state.figures,
-          [payload]: ""
-        }
-      };
-
-    case "RESET_ALL":
-      return {
-        ...state,
-        figures: {
-          ...Object.keys(state.figures).reduce((newFigures, key) => {
-            newFigures[key] = "";
-            return newFigures;
-          }, {})
-        }
-      };
-
-    case "UPDATE":
-      return {
-        ...state,
-        figures: {
-          ...state.figures,
-          ...payload
-        }
-      };
-
-    case "CROP":
-      return {
-        ...state,
-        figures: {
-          ...state.figures,
-          [payload]: state.figures[payload].slice(0, -3)
-        }
-      };
-
-    case "FORMAT":
-      return {
-        ...state,
-        figures: {
-          ...state.figures,
-          [payload]: format(state.figures[payload])
-        }
-      };
-
-    case "CALCULATE":
-      let { vat, cost, priceExcVAT, priceIncVAT } = state.figures;
-
-      if (state.segment) {
-        priceExcVAT = (100 * priceIncVAT) / (+vat + 100);
-      } else {
-        priceIncVAT = +priceExcVAT + (priceExcVAT * vat) / 100;
-      }
-      const profit = priceExcVAT - cost;
-      const margin = (profit / priceExcVAT) * 100;
-
-      return {
-        ...state,
-        figures: {
-          ...state.figures,
-          priceExcVAT: format(priceExcVAT),
-          priceIncVAT: format(priceIncVAT),
-          margin: format(margin),
-          profit: format(profit)
-        }
-      };
-
-    default:
-      throw new Error("wrong action type");
-      break;
-  }
-}
+import reducer from "../../reducer";
 
 const MarginPage: FC = () => {
   const [state, dispatch]: any = useReducer(reducer, {
-    segment: 0,
+    marginSegment: 0,
     figures: {
       vat: "",
       cost: "",
@@ -112,7 +26,7 @@ const MarginPage: FC = () => {
 
   useEffect(() => {
     const keyboardHideListener = Keyboard.addListener("keyboardDidHide", () =>
-      dispatch({ type: "CALCULATE" })
+      dispatch({ type: "CALCULATE_MARGIN" })
     );
     return () => keyboardHideListener.remove();
   }, []);
@@ -168,9 +82,9 @@ const MarginPage: FC = () => {
                   value: state.figures.priceIncVAT
                 }
               ]}
-              selected={state.segment}
+              selected={state.marginSegment}
               onSelection={i =>
-                dispatch({ type: "UPDATE_SEGMENT", payload: i })
+                dispatch({ type: "UPDATE_MARGIN_SEGMENT", payload: i })
               }
               onValueChange={({ key, value }) =>
                 dispatch({ type: "UPDATE", payload: { [key]: value } })
