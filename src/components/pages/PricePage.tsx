@@ -5,10 +5,10 @@ import {
   Keyboard,
   TouchableWithoutFeedback
 } from "react-native";
-import LabeledInput from "./LabeledInput";
-import LabeledOutput from "./LabeledOutput";
-import SegmentedInput from "./SegmentedInput";
-import Footer from "./Footer";
+import LabeledInput from "../LabeledInput";
+import LabeledOutput from "../LabeledOutput";
+import SegmentedInput from "../SegmentedInput";
+import Footer from "../Footer";
 
 function format(figure: string | number) {
   return +figure == 0 ? "0" : (+figure).toFixed(2);
