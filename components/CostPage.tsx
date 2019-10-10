@@ -8,6 +8,7 @@ import {
 import LabeledInput from "./LabeledInput";
 import LabeledOutput from "./LabeledOutput";
 import SegmentedInput from "./SegmentedInput";
+import Footer from "./Footer";
 
 function format(figure: string | number) {
   return +figure == 0 ? "0" : (+figure).toFixed(2);
@@ -33,6 +34,17 @@ function reducer(state, { type, payload }) {
         figures: {
           ...state.figures,
           [payload]: ""
+        }
+      };
+
+    case "RESET_ALL":
+      return {
+        ...state,
+        figures: {
+          ...Object.keys(state.figures).reduce((newFigures, key) => {
+            newFigures[key] = "";
+            return newFigures;
+          }, {})
         }
       };
 
@@ -101,12 +113,12 @@ const CostPage: FC = () => {
     priceSegment: 0,
     marginSegment: 0,
     figures: {
-      vat: "0",
-      cost: "0",
-      margin: "0",
-      profit: "0",
-      priceIncVAT: "0",
-      priceExcVAT: "0"
+      vat: "",
+      cost: "",
+      margin: "",
+      profit: "",
+      priceIncVAT: "",
+      priceExcVAT: ""
     }
   });
 
@@ -135,66 +147,69 @@ const CostPage: FC = () => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <View>
-          <LabeledInput
-            label="VAT:"
-            value={state.figures.vat}
-            onChange={newValue =>
-              dispatch({ type: "UPDATE", payload: { vat: newValue } })
-            }
-            onEndEditing={onEndEditing("vat")}
-            onFocus={onFocus("vat")}
-          />
-          <SegmentedInput
-            segments={[
-              {
-                key: "priceExcVAT",
-                label: "price (exc. VAT)",
-                value: state.figures.priceExcVAT
-              },
-              {
-                key: "priceIncVAT",
-                label: "price (inc. VAT)",
-                value: state.figures.priceIncVAT
+        <View style={styles.main}>
+          <View>
+            <LabeledInput
+              label="VAT:"
+              value={state.figures.vat}
+              onChange={newValue =>
+                dispatch({ type: "UPDATE", payload: { vat: newValue } })
               }
-            ]}
-            selected={state.priceSegment}
-            onSelection={i =>
-              dispatch({ type: "UPDATE_PRICE_SEGMENT", payload: i })
-            }
-            onValueChange={({ key, value }) =>
-              dispatch({ type: "UPDATE", payload: { [key]: value } })
-            }
-            onEndEditing={key => onEndEditing(key)()}
-            onFocus={key => onFocus(key)()}
-          />
-          <SegmentedInput
-            segments={[
-              {
-                key: "margin",
-                label: "margin %",
-                value: state.figures.margin
-              },
-              {
-                key: "profit",
-                label: "profit",
-                value: state.figures.profit
+              onEndEditing={onEndEditing("vat")}
+              onFocus={onFocus("vat")}
+            />
+            <SegmentedInput
+              segments={[
+                {
+                  key: "priceExcVAT",
+                  label: "price (exc. VAT)",
+                  value: state.figures.priceExcVAT
+                },
+                {
+                  key: "priceIncVAT",
+                  label: "price (inc. VAT)",
+                  value: state.figures.priceIncVAT
+                }
+              ]}
+              selected={state.priceSegment}
+              onSelection={i =>
+                dispatch({ type: "UPDATE_PRICE_SEGMENT", payload: i })
               }
-            ]}
-            selected={state.marginSegment}
-            onSelection={i =>
-              dispatch({ type: "UPDATE_MARGIN_SEGMENT", payload: i })
-            }
-            onValueChange={({ key, value }) =>
-              dispatch({ type: "UPDATE", payload: { [key]: value } })
-            }
-            onEndEditing={key => onEndEditing(key)()}
-            onFocus={key => onFocus(key)()}
-          />
+              onValueChange={({ key, value }) =>
+                dispatch({ type: "UPDATE", payload: { [key]: value } })
+              }
+              onEndEditing={key => onEndEditing(key)()}
+              onFocus={key => onFocus(key)()}
+            />
+            <SegmentedInput
+              segments={[
+                {
+                  key: "margin",
+                  label: "margin %",
+                  value: state.figures.margin
+                },
+                {
+                  key: "profit",
+                  label: "profit",
+                  value: state.figures.profit
+                }
+              ]}
+              selected={state.marginSegment}
+              onSelection={i =>
+                dispatch({ type: "UPDATE_MARGIN_SEGMENT", payload: i })
+              }
+              onValueChange={({ key, value }) =>
+                dispatch({ type: "UPDATE", payload: { [key]: value } })
+              }
+              onEndEditing={key => onEndEditing(key)()}
+              onFocus={key => onFocus(key)()}
+            />
+          </View>
+          <View style={styles.output}>
+            <LabeledOutput label="Cost" value={state.figures.cost} />
+          </View>
         </View>
-        <View style={styles.output}>
-          <LabeledOutput label="Cost" value={state.figures.cost} />
-        </View>
+        <Footer onReset={() => dispatch({ type: "RESET_ALL" })} />
       </View>
     </TouchableWithoutFeedback>
   );
@@ -202,9 +217,12 @@ const CostPage: FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    flex: 1
+  },
+  main: {
+    flexGrow: 1,
+    alignItems: "center",
+    justifyContent: "center"
   },
   output: {
     paddingVertical: 10
