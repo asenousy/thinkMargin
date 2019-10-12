@@ -17,7 +17,9 @@ module.exports = {
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/prop-types": "off",
-    "prefer-const": "off"
+    "react/display-name": "off",
+    "prefer-const": "off",
+    "no-var": "off"
   },
   settings: {
     react: {

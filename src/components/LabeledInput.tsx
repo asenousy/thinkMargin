@@ -34,9 +34,14 @@ const styles = StyleSheet.create({
   },
   label: {
     width: 120,
+    textAlign: "center",
     padding: 5
   },
   input: {
+    borderRadius: 2,
+    borderWidth: 0.2,
+    borderColor: "dodgerblue",
+    backgroundColor: "white",
     textAlign: "center",
     padding: 5,
     width: 120

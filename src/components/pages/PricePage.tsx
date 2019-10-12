@@ -112,7 +112,8 @@ const PricePage: FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "aliceblue"
   },
   main: {
     flexGrow: 1,

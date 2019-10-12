@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { StyleSheet, View, Alert, TouchableOpacity, Text } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 type Props = {
   onReset(): void;
@@ -7,11 +8,11 @@ type Props = {
 
 const Footer: FC<Props> = ({ onReset }) => (
   <View style={styles.footer}>
-    <TouchableOpacity style={styles.footerItem} onPress={onReset}>
+    <TouchableOpacity style={styles.reset} onPress={onReset}>
       <Text style={styles.footerText}>reset</Text>
     </TouchableOpacity>
     <TouchableOpacity
-      style={styles.footerItem}
+      style={styles.info}
       onPress={() =>
         Alert.alert(
           "bug",
@@ -20,31 +21,34 @@ const Footer: FC<Props> = ({ onReset }) => (
         )
       }
     >
-      <Text style={styles.footerText}>bug</Text>
+      <Icon name="info-circle" size={25} color="dodgerblue" />
     </TouchableOpacity>
   </View>
 );
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  main: {
-    flexGrow: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  output: {
-    paddingVertical: 10
-  },
   footer: {
     flexDirection: "row",
     justifyContent: "space-between"
   },
-  footerItem: {
-    padding: 20
+  reset: {
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: "dodgerblue",
+    justifyContent: "center",
+    marginBottom: 40,
+    paddingBottom: 2,
+    paddingHorizontal: 10,
+    marginLeft: 30
+  },
+  info: {
+    justifyContent: "center",
+    marginBottom: 40,
+    paddingHorizontal: 10,
+    marginRight: 30
   },
   footerText: {
+    fontSize: 15,
     color: "dodgerblue"
   }
 });
