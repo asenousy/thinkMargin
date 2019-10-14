@@ -52,7 +52,7 @@ const PricePage: FC = () => {
         <View style={styles.main}>
           <View>
             <LabeledInput
-              label="VAT:"
+              label="VAT % :"
               value={state.figures.vat}
               onChange={newValue =>
                 dispatch({ type: "UPDATE", payload: { vat: newValue } })

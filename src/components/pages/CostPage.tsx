@@ -53,7 +53,7 @@ const CostPage: FC = () => {
         <View style={styles.main}>
           <View>
             <LabeledInput
-              label="VAT:"
+              label="VAT % :"
               value={state.figures.vat}
               onChange={newValue =>
                 dispatch({ type: "UPDATE", payload: { vat: newValue } })
@@ -120,7 +120,8 @@ const CostPage: FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "aliceblue"
   },
   main: {
     flexGrow: 1,

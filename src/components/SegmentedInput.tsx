@@ -55,10 +55,16 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "center",
-    paddingVertical: 10
+    paddingVertical: 5
   },
   input: {
     flex: 1,
-    textAlign: "center"
+    textAlign: "center",
+    borderRadius: 2,
+    borderWidth: 0.2,
+    borderColor: "dodgerblue",
+    backgroundColor: "white",
+    paddingVertical: 5,
+    marginHorizontal: 2
   }
 });
