@@ -1,7 +1,10 @@
 import React from "react";
+import { StyleSheet, View, Text } from "react-native";
+import Constants from "expo-constants";
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { AdMobBanner } from "expo-ads-admob";
 import PricePage from "./components/pages/PricePage";
 import MarginPage from "./components/pages/MarginPage";
 import CostPage from "./components/pages/CostPage";
@@ -40,4 +43,25 @@ const navigator = createBottomTabNavigator(
   }
 );
 
-export default createAppContainer(navigator);
+const statusBarPaddingWrapper = () => {
+  const AppContainer = createAppContainer(navigator);
+  return (
+    <View style={styles.wrapper}>
+      <AdMobBanner
+        adUnitID="ca-app-pub-3940256099942544/6300978111"
+        testDeviceID="EMULATOR"
+        servePersonalizedAds
+      />
+      <AppContainer />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    paddingTop: Constants.statusBarHeight
+  }
+});
+
+export default statusBarPaddingWrapper;
