@@ -84,7 +84,8 @@ export default function reducer(state, { type, payload }) {
       return {
         ...state,
         figures: {
-          ...state.figures,
+          vat: format(vat),
+          cost: format(cost),
           margin: format(margin),
           profit: format(profit),
           priceExcVAT: format(priceExcVAT),
@@ -107,7 +108,8 @@ export default function reducer(state, { type, payload }) {
       return {
         ...state,
         figures: {
-          ...state.figures,
+          vat: format(vat),
+          cost: format(cost),
           priceExcVAT: format(priceExcVAT),
           priceIncVAT: format(priceIncVAT),
           margin: format(margin),
@@ -134,7 +136,7 @@ export default function reducer(state, { type, payload }) {
       return {
         ...state,
         figures: {
-          ...state.figures,
+          vat: format(vat),
           priceExcVAT: format(priceExcVAT),
           priceIncVAT: format(priceIncVAT),
           margin: format(margin),
