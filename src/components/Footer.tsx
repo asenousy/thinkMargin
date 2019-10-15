@@ -1,5 +1,12 @@
 import React, { FC } from "react";
-import { StyleSheet, View, Alert, TouchableOpacity, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Alert,
+  TouchableOpacity,
+  Text,
+  Linking
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 type Props = {
@@ -14,14 +21,17 @@ const Footer: FC<Props> = ({ onReset }) => (
     <TouchableOpacity
       style={styles.info}
       onPress={() =>
-        Alert.alert(
-          "bug",
-          "any bugs or improvements to recommend, please email me :)",
-          [{ text: "email me" }, { text: "cancel" }]
-        )
+        Alert.alert("contact", "feel free to email me for any thoughts", [
+          {
+            text: "email me",
+            onPress: () =>
+              Linking.openURL("mailto:support@example.com?subject=thinkMargin")
+          },
+          { text: "cancel" }
+        ])
       }
     >
-      <Icon name="info-circle" size={25} color="dodgerblue" />
+      <Icon name="envelope" size={25} color="dodgerblue" />
     </TouchableOpacity>
   </View>
 );
