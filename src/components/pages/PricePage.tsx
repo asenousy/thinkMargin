@@ -73,12 +73,12 @@ const PricePage: FC = () => {
               segments={[
                 {
                   key: "margin",
-                  label: "margin %",
+                  label: "Margin %",
                   value: state.figures.margin
                 },
                 {
                   key: "profit",
-                  label: "profit",
+                  label: "Profit",
                   value: state.figures.profit
                 }
               ]}

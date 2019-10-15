@@ -65,12 +65,12 @@ const CostPage: FC = () => {
               segments={[
                 {
                   key: "priceExcVAT",
-                  label: "price (exc. VAT)",
+                  label: "Price (exc. VAT)",
                   value: state.figures.priceExcVAT
                 },
                 {
                   key: "priceIncVAT",
-                  label: "price (inc. VAT)",
+                  label: "Price (inc. VAT)",
                   value: state.figures.priceIncVAT
                 }
               ]}
@@ -88,12 +88,12 @@ const CostPage: FC = () => {
               segments={[
                 {
                   key: "margin",
-                  label: "margin %",
+                  label: "Margin %",
                   value: state.figures.margin
                 },
                 {
                   key: "profit",
-                  label: "profit",
+                  label: "Profit",
                   value: state.figures.profit
                 }
               ]}

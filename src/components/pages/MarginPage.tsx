@@ -73,12 +73,12 @@ const MarginPage: FC = () => {
               segments={[
                 {
                   key: "priceExcVAT",
-                  label: "price (exc. VAT)",
+                  label: "Price (exc. VAT)",
                   value: state.figures.priceExcVAT
                 },
                 {
                   key: "priceIncVAT",
-                  label: "price (inc. VAT)",
+                  label: "Price (inc. VAT)",
                   value: state.figures.priceIncVAT
                 }
               ]}
