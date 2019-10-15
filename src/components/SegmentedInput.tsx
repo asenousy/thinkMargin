@@ -31,7 +31,7 @@ export default function SegmentedInput(props: Props): ReactElement {
       <View style={styles.row}>
         {segments.map(({ key, label, value }, i) => (
           <TextInput
-            style={styles.input}
+            style={i === selected ? styles.focused : styles.unfocused}
             value={value}
             key={label}
             onChangeText={newValue => onValueChange({ key, value: newValue })}
@@ -57,13 +57,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 5
   },
-  input: {
+  focused: {
     flex: 1,
     textAlign: "center",
     borderRadius: 2,
     borderWidth: 0.2,
     borderColor: "dodgerblue",
     backgroundColor: "white",
+    paddingVertical: 5,
+    marginHorizontal: 2
+  },
+  unfocused: {
+    flex: 1,
+    textAlign: "center",
     paddingVertical: 5,
     marginHorizontal: 2
   }
