@@ -21,16 +21,22 @@ export default function SegmentedInput(props: Props): ReactElement {
     onEndEditing
   } = props;
 
+  const refs = [];
+
   return (
     <View style={styles.container}>
       <SegmentedControlTab
         values={segments.map(segment => segment.label)}
         selectedIndex={selected}
-        onTabPress={newSelected => onSelection(newSelected)}
+        onTabPress={newSelected => {
+          onSelection(newSelected);
+          refs[newSelected].focus();
+        }}
       />
       <View style={styles.row}>
         {segments.map(({ key, label, value }, i) => (
           <TextInput
+            ref={ref => refs.push(ref)}
             style={i === selected ? styles.focused : styles.unfocused}
             value={value}
             key={label}
