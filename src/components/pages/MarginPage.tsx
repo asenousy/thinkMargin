@@ -2,6 +2,7 @@ import React, { useReducer, FC, useEffect } from "react";
 import {
   StyleSheet,
   View,
+  Text,
   Keyboard,
   TouchableWithoutFeedback
 } from "react-native";
@@ -49,6 +50,12 @@ const MarginPage: FC = () => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.description}>
+            calculate margin & profit from vat, cost and price (with or without
+            VAT)
+          </Text>
+        </View>
         <View style={styles.main}>
           <View>
             <LabeledInput
@@ -110,12 +117,23 @@ const styles = StyleSheet.create({
     backgroundColor: "aliceblue"
   },
   main: {
-    flexGrow: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    flex: 3,
+    alignItems: "center"
   },
   output: {
     paddingVertical: 10
+  },
+  header: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  description: {
+    fontSize: 17,
+    paddingHorizontal: 40,
+    textAlign: "center",
+    fontWeight: "bold",
+    color: "dodgerblue"
   }
 });
 
