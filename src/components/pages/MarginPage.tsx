@@ -51,10 +51,7 @@ const MarginPage: FC = () => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.description}>
-            calculate margin & profit from vat, cost and price (with or without
-            VAT)
-          </Text>
+          <Text style={styles.description}>Calculate Margin & Profit</Text>
         </View>
         <View style={styles.main}>
           <View>
@@ -80,12 +77,12 @@ const MarginPage: FC = () => {
               segments={[
                 {
                   key: "priceExcVAT",
-                  label: "Price (exc. VAT)",
+                  label: "Price (excl. VAT)",
                   value: state.figures.priceExcVAT
                 },
                 {
                   key: "priceIncVAT",
-                  label: "Price (inc. VAT)",
+                  label: "Price (incl. VAT)",
                   value: state.figures.priceIncVAT
                 }
               ]}

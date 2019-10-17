@@ -52,7 +52,7 @@ const PricePage: FC = () => {
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.description}>
-            calculate price from vat, cost and (margin or profit)
+            Calculate Price (excl. & incl. VAT)
           </Text>
         </View>
         <View style={styles.main}>
@@ -101,11 +101,11 @@ const PricePage: FC = () => {
           </View>
           <View style={styles.output}>
             <LabeledOutput
-              label="Price (exc. VAT)"
+              label="Price (excl. VAT)"
               value={state.figures.priceExcVAT}
             />
             <LabeledOutput
-              label="Price (inc. VAT)"
+              label="Price (incl. VAT)"
               value={state.figures.priceIncVAT}
             />
           </View>
