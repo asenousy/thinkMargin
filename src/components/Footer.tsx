@@ -7,7 +7,7 @@ import {
   Text,
   Linking
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { FontAwesome } from "@expo/vector-icons";
 
 type Props = {
   onReset(): void;
@@ -31,7 +31,7 @@ const Footer: FC<Props> = ({ onReset }) => (
         ])
       }
     >
-      <Icon name="envelope" size={25} color="dodgerblue" />
+      <FontAwesome name="envelope" size={25} color="dodgerblue" />
     </TouchableOpacity>
   </View>
 );

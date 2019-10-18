@@ -1,13 +1,13 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Constants from "expo-constants";
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { AdMobBanner } from "expo-ads-admob";
 import PricePage from "./components/pages/PricePage";
 import MarginPage from "./components/pages/MarginPage";
 import CostPage from "./components/pages/CostPage";
+import { FontAwesome } from "@expo/vector-icons";
 
 const navigator = createBottomTabNavigator(
   {
@@ -30,12 +30,11 @@ const navigator = createBottomTabNavigator(
             var iconName = "shopping-cart";
             break;
         }
-        return <Icon name={iconName} size={24} color={tintColor} />;
+        return <FontAwesome name={iconName} size={24} color={tintColor} />;
       }
     }),
     tabBarOptions: {
       keyboardHidesTabBar: false,
-      style: { paddingTop: 5 },
       labelStyle: {
         fontSize: 13
       }
