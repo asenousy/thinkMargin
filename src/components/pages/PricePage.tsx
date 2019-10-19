@@ -67,7 +67,7 @@ const PricePage: FC = () => {
               onFocus={onFocus("vat")}
             />
             <LabeledInput
-              label="Cost:"
+              label="Cost :"
               value={state.figures.cost}
               onChange={newValue =>
                 dispatch({ type: "UPDATE", payload: { cost: newValue } })
@@ -101,11 +101,11 @@ const PricePage: FC = () => {
           </View>
           <View style={styles.output}>
             <LabeledOutput
-              label="Price (excl. VAT)"
+              label="Price (excl. VAT) :"
               value={state.figures.priceExcVAT}
             />
             <LabeledOutput
-              label="Price (incl. VAT)"
+              label="Price (incl. VAT) :"
               value={state.figures.priceIncVAT}
             />
           </View>
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   output: {
-    paddingVertical: 10
+    paddingVertical: 20
   },
   header: {
     flex: 1,

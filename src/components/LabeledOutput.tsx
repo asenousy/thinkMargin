@@ -19,13 +19,14 @@ export default function LabeledOutput(props: Props): ReactElement {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
+    justifyContent: "center",
     padding: 10
   },
   label: {
     textAlign: "center",
-    width: 132,
+    minWidth: 70,
     padding: 5,
     fontWeight: "bold",
-    fontSize: 15
+    fontSize: 16
   }
 });

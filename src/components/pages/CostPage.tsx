@@ -113,7 +113,7 @@ const CostPage: FC = () => {
             />
           </View>
           <View style={styles.output}>
-            <LabeledOutput label="Cost" value={state.figures.cost} />
+            <LabeledOutput label="Cost :" value={state.figures.cost} />
           </View>
         </View>
         <Footer onReset={() => dispatch({ type: "RESET_ALL" })} />
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   output: {
-    paddingVertical: 10
+    paddingVertical: 20
   },
   header: {
     flex: 1,

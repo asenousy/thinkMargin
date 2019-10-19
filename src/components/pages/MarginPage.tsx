@@ -65,7 +65,7 @@ const MarginPage: FC = () => {
               onFocus={onFocus("vat")}
             />
             <LabeledInput
-              label="Cost:"
+              label="Cost :"
               value={state.figures.cost}
               onChange={newValue =>
                 dispatch({ type: "UPDATE", payload: { cost: newValue } })
@@ -98,8 +98,8 @@ const MarginPage: FC = () => {
             />
           </View>
           <View style={styles.output}>
-            <LabeledOutput label="Profit" value={state.figures.profit} />
-            <LabeledOutput label="Margin %" value={state.figures.margin} />
+            <LabeledOutput label="Profit :" value={state.figures.profit} />
+            <LabeledOutput label="Margin % :" value={state.figures.margin} />
           </View>
         </View>
         <Footer onReset={() => dispatch({ type: "RESET_ALL" })} />
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   output: {
-    paddingVertical: 10
+    paddingVertical: 20
   },
   header: {
     flex: 1,
