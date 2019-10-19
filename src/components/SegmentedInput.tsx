@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
-import SegmentedControlTab from "react-native-segmented-control-tab";
 import { StyleSheet, View, TextInput } from "react-native";
+import SegmentedControlTab from "react-native-segmented-control-tab";
 
 type Props = {
   segments: Array<{ key: string; label: string; value: string }>;
@@ -26,6 +26,11 @@ export default function SegmentedInput(props: Props): ReactElement {
   return (
     <View style={styles.container}>
       <SegmentedControlTab
+        tabStyle={{
+          backgroundColor: "aliceblue"
+        }}
+        tabTextStyle={{ color: "black" }}
+        borderRadius={2}
         values={segments.map(segment => segment.label)}
         selectedIndex={selected}
         onTabPress={newSelected => {
