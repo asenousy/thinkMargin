@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { StyleSheet, View, TextInput } from "react-native";
+import { StyleSheet, View, TextInput, Platform } from "react-native";
 import SegmentedControlTab from "react-native-segmented-control-tab";
 
 type Props = {
@@ -75,13 +75,13 @@ const styles = StyleSheet.create({
     borderWidth: 0.2,
     borderColor: "dodgerblue",
     backgroundColor: "white",
-    paddingVertical: 5,
+    paddingVertical: Platform.OS === "ios" ? 4 : 0,
     marginHorizontal: 2
   },
   unfocused: {
     flex: 1,
     textAlign: "center",
-    paddingVertical: 5,
+    paddingVertical: Platform.OS === "ios" ? 4 : 0,
     marginHorizontal: 2
   }
 });

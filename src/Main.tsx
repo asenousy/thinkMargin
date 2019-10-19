@@ -61,7 +61,8 @@ const statusBarPaddingWrapper = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    paddingTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: "aliceblue"
   }
 });
 

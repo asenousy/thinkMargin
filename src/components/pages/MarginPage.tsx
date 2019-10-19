@@ -110,11 +110,10 @@ const MarginPage: FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "aliceblue"
+    flex: 1
   },
   main: {
-    flex: 3,
+    flex: 4,
     alignItems: "center"
   },
   output: {

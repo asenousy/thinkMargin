@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     borderColor: "dodgerblue",
     backgroundColor: "white",
     textAlign: "center",
-    padding: 5,
     width: 120
   }
 });
