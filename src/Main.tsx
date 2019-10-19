@@ -8,6 +8,9 @@ import PricePage from "./components/pages/PricePage";
 import MarginPage from "./components/pages/MarginPage";
 import CostPage from "./components/pages/CostPage";
 import { FontAwesome } from "@expo/vector-icons";
+import configs from "../configs.json";
+
+const TEST_AD = "ca-app-pub-3940256099942544/6300978111";
 
 const navigator = createBottomTabNavigator(
   {
@@ -47,8 +50,7 @@ const statusBarPaddingWrapper = () => {
   return (
     <View style={styles.wrapper}>
       <AdMobBanner
-        adUnitID="ca-app-pub-3940256099942544/6300978111"
-        testDeviceID="EMULATOR"
+        adUnitID={configs.adUnitID || TEST_AD}
         servePersonalizedAds
       />
       <AppContainer />
