@@ -21,11 +21,11 @@ const Footer: FC<Props> = ({ onReset }) => (
     <TouchableOpacity
       style={styles.info}
       onPress={() =>
-        Alert.alert("contact", "feel free to email me for any thoughts", [
+        Alert.alert("Contact Me", "feel free to email me for any thoughts", [
           {
             text: "email me",
             onPress: () =>
-              Linking.openURL("mailto:support@example.com?subject=thinkMargin")
+              Linking.openURL("mailto:cafefrecsa@gmail.com?subject=thinkMargin")
           },
           { text: "cancel" }
         ])
