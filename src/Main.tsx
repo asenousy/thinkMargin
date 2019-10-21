@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Platform } from "react-native";
 import Constants from "expo-constants";
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -10,7 +10,8 @@ import CostPage from "./components/pages/CostPage";
 import { FontAwesome } from "@expo/vector-icons";
 import configs from "../configs.json";
 
-const TEST_AD = "ca-app-pub-3940256099942544/6300978111";
+const TEST_AD_ID = configs.testAdUnitID;
+const AD_ID = configs[Platform.OS].adUnitID;
 
 const navigator = createBottomTabNavigator(
   {
@@ -49,10 +50,7 @@ const statusBarPaddingWrapper = () => {
   const AppContainer = createAppContainer(navigator);
   return (
     <View style={styles.wrapper}>
-      <AdMobBanner
-        adUnitID={configs.adUnitID || TEST_AD}
-        servePersonalizedAds
-      />
+      <AdMobBanner adUnitID={AD_ID || TEST_AD_ID} servePersonalizedAds />
       <AppContainer />
     </View>
   );
