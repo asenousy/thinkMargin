@@ -29,6 +29,7 @@ export default function SegmentedInput(props: Props): ReactElement {
         tabStyle={{
           backgroundColor: "aliceblue"
         }}
+        lastTabStyle={{ borderLeftWidth: 1 }}
         tabTextStyle={{ color: "black" }}
         borderRadius={2}
         values={segments.map(segment => segment.label)}
