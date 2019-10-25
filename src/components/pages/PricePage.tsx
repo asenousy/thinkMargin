@@ -51,9 +51,7 @@ const PricePage: FC = () => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.description}>
-            Calculate Price (excl. & incl. VAT)
-          </Text>
+          <Text style={styles.description}>Calculate Price</Text>
         </View>
         <View style={styles.main}>
           <View>
