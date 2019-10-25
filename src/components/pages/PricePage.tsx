@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   description: {
-    fontSize: 17,
+    fontSize: 19,
     paddingHorizontal: 40,
     textAlign: "center",
     fontWeight: "bold",

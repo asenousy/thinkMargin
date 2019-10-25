@@ -1,4 +1,5 @@
 function format(figure: string | number) {
+  if (Number.isNaN(+figure)) return "0";
   return +figure == 0 ? "0" : (+figure).toFixed(2);
 }
 

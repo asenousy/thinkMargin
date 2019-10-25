@@ -10,8 +10,9 @@ import CostPage from "./components/pages/CostPage";
 import { FontAwesome } from "@expo/vector-icons";
 import configs from "../configs.json";
 
-const TEST_AD_ID = configs.testAdUnitID;
-const AD_ID = configs[Platform.OS].adUnitID;
+const AD_UNIT_ID = __DEV__
+  ? configs.testAdUnitID
+  : configs[Platform.OS].adUnitID;
 
 const navigator = createBottomTabNavigator(
   {
@@ -50,7 +51,7 @@ const statusBarPaddingWrapper = () => {
   const AppContainer = createAppContainer(navigator);
   return (
     <View style={styles.wrapper}>
-      <AdMobBanner adUnitID={AD_ID || TEST_AD_ID} servePersonalizedAds />
+      <AdMobBanner adUnitID={AD_UNIT_ID} servePersonalizedAds />
       <AppContainer />
     </View>
   );
