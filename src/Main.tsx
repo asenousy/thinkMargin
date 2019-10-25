@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Platform } from "react-native";
+import { StyleSheet, View, Platform, StatusBar } from "react-native";
 import Constants from "expo-constants";
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -51,6 +51,7 @@ const statusBarPaddingWrapper = () => {
   const AppContainer = createAppContainer(navigator);
   return (
     <View style={styles.wrapper}>
+      <StatusBar barStyle="dark-content" />
       <AdMobBanner adUnitID={AD_UNIT_ID} servePersonalizedAds />
       <AppContainer />
     </View>
