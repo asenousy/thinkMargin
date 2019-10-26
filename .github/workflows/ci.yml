@@ -15,4 +15,5 @@ jobs:
           expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
       - run: npm ci
+      - run: sed -i 's/aaa/${{ secrets.AD_UNIT_ID_IOS}}/g' configs.json
       - run: cat configs.json
