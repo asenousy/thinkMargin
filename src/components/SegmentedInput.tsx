@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
   unfocused: {
     flex: 1,
     textAlign: "center",
+    backgroundColor: "aliceblue",
     paddingVertical: Platform.OS === "ios" ? 4 : 0,
     marginHorizontal: 2
   }
