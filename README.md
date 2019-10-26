@@ -1,1 +1,2 @@
 # thinkMargin
+margin calculator
