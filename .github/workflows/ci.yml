@@ -17,4 +17,4 @@ jobs:
       - run: npm ci
       - run: sed -i 's/{{AD_UNIT_ID_IOS}}/${{ secrets.AD_UNIT_ID_IOS }}/g' configs.json
       - run: sed -i 's/{{AD_UNIT_ID_ANDROID}}/${{ secrets.AD_UNIT_ID_ANDROID }}/g' configs.json
-      - run: cat configs.json
+      - run: expo publish
