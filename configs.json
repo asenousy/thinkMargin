@@ -1,9 +1,9 @@
 {
   "testAdUnitID": "ca-app-pub-3940256099942544/6300978111",
   "ios": {
-    "adUnitID": "aaa"
+    "adUnitID": "{{AD_UNIT_ID_IOS}}"
   },
   "android": {
-    "adUnitID": ""
+    "adUnitID": "{{AD_UNIT_ID_ANDROID}}"
   }
 }
