@@ -1,4 +1,4 @@
-import React, { useReducer, FC, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -6,13 +6,14 @@ import {
   Keyboard,
   TouchableWithoutFeedback
 } from "react-native";
+import { NavigationTabProp } from "react-navigation-tabs";
 import LabeledInput from "../LabeledInput";
 import LabeledOutput from "../LabeledOutput";
 import SegmentedInput from "../SegmentedInput";
 import Footer from "../Footer";
 import reducer from "../../reducer";
 
-const CostPage: FC = () => {
+const CostPage: NavigationTabProp = props => {
   const [state, dispatch]: any = useReducer(reducer, {
     priceSegment: 0,
     marginSegment: 0,
@@ -27,10 +28,15 @@ const CostPage: FC = () => {
   });
 
   useEffect(() => {
-    const keyboardHideListener = Keyboard.addListener("keyboardDidHide", () =>
-      dispatch({ type: "CALCULATE_COST" })
-    );
-    return () => keyboardHideListener.remove();
+    let keyboardHideListener;
+    props.navigation.addListener("didFocus", () => {
+      keyboardHideListener = Keyboard.addListener("keyboardDidHide", () =>
+        dispatch({ type: "CALCULATE_COST" })
+      );
+    });
+    props.navigation.addListener("didBlur", () => {
+      keyboardHideListener.remove();
+    });
   }, []);
 
   function onFocus(key) {

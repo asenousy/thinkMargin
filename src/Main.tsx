@@ -43,7 +43,8 @@ const navigator = createBottomTabNavigator(
       labelStyle: {
         fontSize: 13
       }
-    }
+    },
+    lazy: false
   }
 );
 

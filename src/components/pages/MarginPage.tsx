@@ -1,4 +1,4 @@
-import React, { useReducer, FC, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -6,13 +6,14 @@ import {
   Keyboard,
   TouchableWithoutFeedback
 } from "react-native";
+import { NavigationTabProp } from "react-navigation-tabs";
 import LabeledInput from "../LabeledInput";
 import LabeledOutput from "../LabeledOutput";
 import SegmentedInput from "../SegmentedInput";
 import Footer from "../Footer";
 import reducer from "../../reducer";
 
-const MarginPage: FC = () => {
+const MarginPage: NavigationTabProp = props => {
   const [state, dispatch]: any = useReducer(reducer, {
     marginSegment: 0,
     figures: {
@@ -26,10 +27,15 @@ const MarginPage: FC = () => {
   });
 
   useEffect(() => {
-    const keyboardHideListener = Keyboard.addListener("keyboardDidHide", () =>
-      dispatch({ type: "CALCULATE_MARGIN" })
-    );
-    return () => keyboardHideListener.remove();
+    let keyboardHideListener;
+    props.navigation.addListener("didFocus", () => {
+      keyboardHideListener = Keyboard.addListener("keyboardDidHide", () =>
+        dispatch({ type: "CALCULATE_MARGIN" })
+      );
+    });
+    props.navigation.addListener("didBlur", () => {
+      keyboardHideListener.remove();
+    });
   }, []);
 
   function onFocus(key) {
