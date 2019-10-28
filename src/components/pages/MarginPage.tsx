@@ -28,14 +28,21 @@ const MarginPage: NavigationTabProp = props => {
 
   useEffect(() => {
     let keyboardHideListener;
-    props.navigation.addListener("didFocus", () => {
-      keyboardHideListener = Keyboard.addListener("keyboardDidHide", () =>
-        dispatch({ type: "CALCULATE_MARGIN" })
-      );
-    });
-    props.navigation.addListener("didBlur", () => {
+    const didFocusSubscription = props.navigation.addListener(
+      "didFocus",
+      () => {
+        keyboardHideListener = Keyboard.addListener("keyboardDidHide", () =>
+          dispatch({ type: "CALCULATE_MARGIN" })
+        );
+      }
+    );
+    const didBlurSubscription = props.navigation.addListener("didBlur", () => {
       keyboardHideListener.remove();
     });
+    return () => {
+      didFocusSubscription.remove();
+      didBlurSubscription.remove();
+    };
   }, []);
 
   function onFocus(key) {
