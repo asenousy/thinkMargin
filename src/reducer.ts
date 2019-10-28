@@ -147,9 +147,7 @@ export default function reducer(state, { type, payload }) {
       };
     }
 
-    default: {
-      throw new Error("wrong action type: " + type);
-      break;
-    }
+    default:
+      if (__DEV__) throw new Error("wrong action type: " + type);
   }
 }
