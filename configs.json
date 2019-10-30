@@ -1,4 +1,5 @@
 {
+  "jsVersion": "0.0.1",
   "testAdUnitID": "ca-app-pub-3940256099942544/6300978111",
   "ios": {
     "adUnitID": "{{AD_UNIT_ID_IOS}}"

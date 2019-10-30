@@ -8,6 +8,7 @@ import {
   Linking
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { jsVersion } from "../../configs.json";
 
 type Props = {
   onReset(): void;
@@ -25,7 +26,9 @@ const Footer: FC<Props> = ({ onReset }) => (
           {
             text: "email me",
             onPress: () =>
-              Linking.openURL("mailto:cafefrecsa@gmail.com?subject=thinkMargin")
+              Linking.openURL(
+                `mailto:cafefrecsa@gmail.com?subject=thinkMargin v${jsVersion}`
+              )
           },
           { text: "cancel" }
         ])
