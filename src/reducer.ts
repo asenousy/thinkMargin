@@ -1,9 +1,22 @@
+export type StoreState = {
+  priceSegment?: number;
+  marginSegment?: number;
+  figures: {
+    vat: string;
+    cost: string;
+    margin: string;
+    profit: string;
+    priceIncVAT: string;
+    priceExcVAT: string;
+  };
+};
+
 function format(figure: string | number) {
   if (Number.isNaN(+figure)) return "0";
   return +figure == 0 ? "0" : (+figure).toFixed(2);
 }
 
-export default function reducer(state, { type, payload }) {
+export function reducer(state, { type, payload }) {
   switch (type) {
     case "UPDATE_PRICE_SEGMENT": {
       return {
