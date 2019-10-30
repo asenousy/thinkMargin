@@ -5,7 +5,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "publish:dev": "expo publish --release-channel develop",
+    "build:dev": "expo build:ios -t simulator --release-channel develop"
   },
   "dependencies": {
     "expo": "^34.0.1",
