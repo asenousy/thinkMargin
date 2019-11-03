@@ -53,6 +53,7 @@ export default function SegmentedInput(props: Props): ReactElement {
               onFocus(key);
             }}
             onEndEditing={() => onEndEditing(key)}
+            clearButtonMode={"while-editing"}
           />
         ))}
       </View>
