@@ -1,3 +1,5 @@
+import { Action, ActionTypes } from "./actions";
+
 export type StoreState = {
   priceSegment?: number;
   marginSegment?: number;
@@ -11,28 +13,37 @@ export type StoreState = {
   };
 };
 
-function format(figure: string | number) {
+export function format(figure: string | number) {
   if (Number.isNaN(+figure)) return "0";
-  return +figure == 0 ? "0" : (+figure).toFixed(2);
+  return figure == 0 ? "0" : (+figure).toFixed(2);
 }
 
-export function reducer(state, { type, payload }) {
+export function numberify(figures: {
+  [key: string]: string;
+}): { [key: string]: number } {
+  return Object.entries(figures).reduce(
+    (newFigures, [key, value]) => ({ ...newFigures, [key]: +value }),
+    {}
+  );
+}
+
+export function reducer(state: StoreState, { type, payload }: Action) {
   switch (type) {
-    case "UPDATE_PRICE_SEGMENT": {
+    case ActionTypes.UPDATE_PRICE_SEGMENT: {
       return {
         ...state,
         priceSegment: payload
       };
     }
 
-    case "UPDATE_MARGIN_SEGMENT": {
+    case ActionTypes.UPDATE_MARGIN_SEGMENT: {
       return {
         ...state,
         marginSegment: payload
       };
     }
 
-    case "RESET": {
+    case ActionTypes.RESET: {
       return {
         ...state,
         figures: {
@@ -42,7 +53,7 @@ export function reducer(state, { type, payload }) {
       };
     }
 
-    case "RESET_ALL": {
+    case ActionTypes.RESET_ALL: {
       return {
         ...state,
         figures: {
@@ -54,7 +65,7 @@ export function reducer(state, { type, payload }) {
       };
     }
 
-    case "UPDATE": {
+    case ActionTypes.UPDATE: {
       return {
         ...state,
         figures: {
@@ -64,7 +75,7 @@ export function reducer(state, { type, payload }) {
       };
     }
 
-    case "CROP": {
+    case ActionTypes.CROP: {
       return {
         ...state,
         figures: {
@@ -74,7 +85,7 @@ export function reducer(state, { type, payload }) {
       };
     }
 
-    case "FORMAT": {
+    case ActionTypes.FORMAT: {
       return {
         ...state,
         figures: {
@@ -84,16 +95,16 @@ export function reducer(state, { type, payload }) {
       };
     }
 
-    case "CALCULATE_PRICE": {
-      let { vat, cost, margin, profit } = state.figures;
+    case ActionTypes.CALCULATE_PRICE: {
+      let { vat, cost, margin, profit } = numberify(state.figures);
 
       if (state.priceSegment) {
-        margin = (profit / (+cost + +profit)) * 100;
+        margin = (profit / (cost + profit)) * 100;
       } else {
         profit = ((margin / 100) * cost) / (1 - margin / 100);
       }
-      const priceExcVAT = +cost + +profit;
-      const priceIncVAT = +priceExcVAT + (priceExcVAT * vat) / 100;
+      const priceExcVAT = cost + profit;
+      const priceIncVAT = priceExcVAT + (priceExcVAT * vat) / 100;
 
       return {
         ...state,
@@ -108,13 +119,13 @@ export function reducer(state, { type, payload }) {
       };
     }
 
-    case "CALCULATE_MARGIN": {
-      let { vat, cost, priceExcVAT, priceIncVAT } = state.figures;
+    case ActionTypes.CALCULATE_MARGIN: {
+      let { vat, cost, priceExcVAT, priceIncVAT } = numberify(state.figures);
 
       if (state.marginSegment) {
-        priceExcVAT = (100 * priceIncVAT) / (+vat + 100);
+        priceExcVAT = (100 * priceIncVAT) / (vat + 100);
       } else {
-        priceIncVAT = +priceExcVAT + (priceExcVAT * vat) / 100;
+        priceIncVAT = priceExcVAT + (priceExcVAT * vat) / 100;
       }
       const profit = priceExcVAT - cost;
       const margin = (profit / priceExcVAT) * 100;
@@ -132,13 +143,15 @@ export function reducer(state, { type, payload }) {
       };
     }
 
-    case "CALCULATE_COST": {
-      let { vat, margin, profit, priceExcVAT, priceIncVAT } = state.figures;
+    case ActionTypes.CALCULATE_COST: {
+      let { vat, margin, profit, priceExcVAT, priceIncVAT } = numberify(
+        state.figures
+      );
 
       if (state.priceSegment) {
-        priceExcVAT = (100 * priceIncVAT) / (+vat + 100);
+        priceExcVAT = (100 * priceIncVAT) / (vat + 100);
       } else {
-        priceIncVAT = +priceExcVAT + (priceExcVAT * vat) / 100;
+        priceIncVAT = priceExcVAT + (priceExcVAT * vat) / 100;
       }
       if (state.marginSegment) {
         margin = (profit / priceExcVAT) * 100;

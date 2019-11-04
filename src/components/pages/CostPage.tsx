@@ -12,6 +12,16 @@ import LabeledOutput from "../LabeledOutput";
 import SegmentedInput from "../SegmentedInput";
 import Footer from "../Footer";
 import { reducer, StoreState } from "../../reducer";
+import {
+  calculateCost,
+  reset,
+  crop,
+  resetAll,
+  update,
+  format,
+  updateMarginSegment,
+  updatePriceSegment
+} from "../../actions";
 
 class CostPage extends React.PureComponent<NavigationTabProp, StoreState> {
   keyboardHideListener;
@@ -34,7 +44,7 @@ class CostPage extends React.PureComponent<NavigationTabProp, StoreState> {
     super(props);
     this.didFocusSubscription = props.navigation.addListener("didFocus", () => {
       this.keyboardHideListener = Keyboard.addListener("keyboardDidHide", () =>
-        this.dispatch({ type: "CALCULATE_COST" })
+        this.dispatch(calculateCost())
       );
     });
     this.didBlurSubscription = props.navigation.addListener("didBlur", () => {
@@ -50,16 +60,15 @@ class CostPage extends React.PureComponent<NavigationTabProp, StoreState> {
     const { figures } = this.state;
     return () => {
       if (figures[key] == 0 || Number.isNaN(+figures[key])) {
-        return void this.dispatch({ type: "RESET", payload: key });
+        return void this.dispatch(reset(key));
       }
 
-      if (figures[key].endsWith(".00"))
-        this.dispatch({ type: "CROP", payload: key });
+      if (figures[key].endsWith(".00")) this.dispatch(crop(key));
     };
   }
 
   onEndEditing(key) {
-    return () => this.dispatch({ type: "FORMAT", payload: key });
+    return () => this.dispatch(format(key));
   }
 
   render() {
@@ -75,9 +84,7 @@ class CostPage extends React.PureComponent<NavigationTabProp, StoreState> {
               <LabeledInput
                 label="VAT % :"
                 value={figures.vat}
-                onChange={newValue =>
-                  this.dispatch({ type: "UPDATE", payload: { vat: newValue } })
-                }
+                onChange={newValue => this.dispatch(update({ vat: newValue }))}
                 onEndEditing={this.onEndEditing("vat")}
                 onFocus={this.onFocus("vat")}
               />
@@ -95,11 +102,9 @@ class CostPage extends React.PureComponent<NavigationTabProp, StoreState> {
                   }
                 ]}
                 selected={priceSegment}
-                onSelection={i =>
-                  this.dispatch({ type: "UPDATE_PRICE_SEGMENT", payload: i })
-                }
+                onSelection={i => this.dispatch(updatePriceSegment(i))}
                 onValueChange={({ key, value }) =>
-                  this.dispatch({ type: "UPDATE", payload: { [key]: value } })
+                  this.dispatch(update({ [key]: value }))
                 }
                 onEndEditing={key => this.onEndEditing(key)()}
                 onFocus={key => this.onFocus(key)()}
@@ -118,11 +123,9 @@ class CostPage extends React.PureComponent<NavigationTabProp, StoreState> {
                   }
                 ]}
                 selected={marginSegment}
-                onSelection={i =>
-                  this.dispatch({ type: "UPDATE_MARGIN_SEGMENT", payload: i })
-                }
+                onSelection={i => this.dispatch(updateMarginSegment(i))}
                 onValueChange={({ key, value }) =>
-                  this.dispatch({ type: "UPDATE", payload: { [key]: value } })
+                  this.dispatch(update({ [key]: value }))
                 }
                 onEndEditing={key => this.onEndEditing(key)()}
                 onFocus={key => this.onFocus(key)()}
@@ -132,7 +135,7 @@ class CostPage extends React.PureComponent<NavigationTabProp, StoreState> {
               <LabeledOutput label="Cost :" value={figures.cost} />
             </View>
           </View>
-          <Footer onReset={() => this.dispatch({ type: "RESET_ALL" })} />
+          <Footer onReset={() => this.dispatch(resetAll())} />
         </View>
       </TouchableWithoutFeedback>
     );
