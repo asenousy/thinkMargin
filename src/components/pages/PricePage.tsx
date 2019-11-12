@@ -1,143 +1,92 @@
-import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Keyboard,
-  TouchableWithoutFeedback
-} from "react-native";
-import { NavigationTabProp } from "react-navigation-tabs";
+import React, { FC } from "react";
+import { StyleSheet, View, Text, TouchableWithoutFeedback } from "react-native";
 import LabeledInput from "../LabeledInput";
 import LabeledOutput from "../LabeledOutput";
 import SegmentedInput from "../SegmentedInput";
 import Footer from "../Footer";
-import { reducer, StoreState } from "../../reducer";
-import {
-  calculatePrice,
-  reset,
-  crop,
-  resetAll,
-  update,
-  format,
-  updatePriceSegment
-} from "../../actions";
+import { StoreState } from "../../reducer";
+import PageContainer from "./PageContainer";
 
-class PricePage extends React.PureComponent<NavigationTabProp, StoreState> {
-  keyboardHideListener;
-  didFocusSubscription;
-  didBlurSubscription;
-  state = {
-    priceSegment: 0,
-    figures: {
-      vat: "",
-      cost: "",
-      margin: "",
-      profit: "",
-      priceIncVAT: "",
-      priceExcVAT: ""
-    }
-  };
+type Props = StoreState & {
+  updateSegment();
+  onChange();
+  onEndEditing(key: string);
+  onFocus();
+  onReset();
+  update();
+  onBackgroundClick();
+};
 
-  constructor(props) {
-    super(props);
-    this.didFocusSubscription = props.navigation.addListener("didFocus", () => {
-      this.keyboardHideListener = Keyboard.addListener("keyboardDidHide", () =>
-        this.dispatch(calculatePrice())
-      );
-    });
-    this.didBlurSubscription = props.navigation.addListener("didBlur", () => {
-      this.keyboardHideListener.remove();
-    });
-  }
-
-  dispatch(action) {
-    this.setState(prevState => reducer(prevState, action));
-  }
-
-  onFocus(key) {
-    const { figures } = this.state;
-    return () => {
-      if (figures[key] == 0 || Number.isNaN(+figures[key])) {
-        return void this.dispatch(reset(key));
-      }
-
-      if (figures[key].endsWith(".00")) this.dispatch(crop(key));
-    };
-  }
-
-  onEndEditing(key) {
-    return () => this.dispatch(format(key));
-  }
-
-  render() {
-    const { figures, priceSegment } = this.state;
-    return (
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <Text style={styles.description}>Calculate Price</Text>
-          </View>
-          <View style={styles.main}>
-            <View>
-              <LabeledInput
-                label="VAT % :"
-                value={figures.vat}
-                onChange={newValue => this.dispatch(update({ vat: newValue }))}
-                onEndEditing={this.onEndEditing("vat")}
-                onFocus={this.onFocus("vat")}
-              />
-              <LabeledInput
-                label="Cost :"
-                value={figures.cost}
-                onChange={newValue => this.dispatch(update({ cost: newValue }))}
-                onEndEditing={this.onEndEditing("cost")}
-                onFocus={this.onFocus("cost")}
-              />
-              <SegmentedInput
-                segments={[
-                  {
-                    key: "margin",
-                    label: "Margin %",
-                    value: figures.margin
-                  },
-                  {
-                    key: "profit",
-                    label: "Profit",
-                    value: figures.profit
-                  }
-                ]}
-                selected={priceSegment}
-                onSelection={i => this.dispatch(updatePriceSegment(i))}
-                onValueChange={({ key, value }) =>
-                  this.dispatch(update({ [key]: value }))
-                }
-                onEndEditing={key => this.onEndEditing(key)()}
-                onFocus={key => this.onFocus(key)()}
-              />
-            </View>
-            <View style={styles.output}>
-              <LabeledOutput
-                label="Price (excl. VAT) :"
-                value={figures.priceExcVAT}
-              />
-              <LabeledOutput
-                label="Price (incl. VAT) :"
-                value={figures.priceIncVAT}
-              />
-            </View>
-          </View>
-          <Footer onReset={() => this.dispatch(resetAll())} />
+const PricePage: FC<Props> = ({
+  figures,
+  marginSegment,
+  updateSegment,
+  onChange,
+  onEndEditing,
+  onFocus,
+  onReset,
+  onBackgroundClick
+}) => (
+  <TouchableWithoutFeedback onPress={onBackgroundClick}>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.description}>Calculate Price</Text>
+      </View>
+      <View style={styles.main}>
+        <View>
+          <LabeledInput
+            name="vat"
+            label="VAT % :"
+            value={figures.vat}
+            onChange={onChange}
+            onEndEditing={onEndEditing}
+            onFocus={onFocus}
+          />
+          <LabeledInput
+            name="cost"
+            label="Cost :"
+            value={figures.cost}
+            onChange={onChange}
+            onEndEditing={onEndEditing}
+            onFocus={onFocus}
+          />
+          <SegmentedInput
+            ukey="price"
+            name="marginSegment"
+            segments={[
+              {
+                name: "margin",
+                label: "Margin %",
+                value: figures.margin
+              },
+              {
+                name: "profit",
+                label: "Profit",
+                value: figures.profit
+              }
+            ]}
+            selected={marginSegment}
+            onSelection={updateSegment}
+            onValueChange={onChange}
+            onEndEditing={onEndEditing}
+            onFocus={onFocus}
+          />
         </View>
-      </TouchableWithoutFeedback>
-    );
-  }
-
-  componentWillUnmount() {
-    this.keyboardHideListener && this.keyboardHideListener.remove();
-    this.didFocusSubscription.remove();
-    this.didBlurSubscription.remove();
-  }
-}
+        <View style={styles.output}>
+          <LabeledOutput
+            label="Price (excl. VAT) :"
+            value={figures.priceExcVAT}
+          />
+          <LabeledOutput
+            label="Price (incl. VAT) :"
+            value={figures.priceIncVAT}
+          />
+        </View>
+      </View>
+      <Footer onReset={onReset} />
+    </View>
+  </TouchableWithoutFeedback>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -164,4 +113,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PricePage;
+export default PageContainer(PricePage);

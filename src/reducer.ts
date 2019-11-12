@@ -29,17 +29,10 @@ export function numberify(figures: {
 
 export function reducer(state: StoreState, { type, payload }: Action) {
   switch (type) {
-    case ActionTypes.UPDATE_PRICE_SEGMENT: {
+    case ActionTypes.UPDATE_SEGMENT: {
       return {
         ...state,
-        priceSegment: payload
-      };
-    }
-
-    case ActionTypes.UPDATE_MARGIN_SEGMENT: {
-      return {
-        ...state,
-        marginSegment: payload
+        ...payload
       };
     }
 
@@ -98,7 +91,7 @@ export function reducer(state: StoreState, { type, payload }: Action) {
     case ActionTypes.CALCULATE_PRICE: {
       let { vat, cost, margin, profit } = numberify(state.figures);
 
-      if (state.priceSegment) {
+      if (state.marginSegment) {
         margin = (profit / (cost + profit)) * 100;
       } else {
         profit = ((margin / 100) * cost) / (1 - margin / 100);
@@ -122,7 +115,7 @@ export function reducer(state: StoreState, { type, payload }: Action) {
     case ActionTypes.CALCULATE_MARGIN: {
       let { vat, cost, priceExcVAT, priceIncVAT } = numberify(state.figures);
 
-      if (state.marginSegment) {
+      if (state.priceSegment) {
         priceExcVAT = (100 * priceIncVAT) / (vat + 100);
       } else {
         priceIncVAT = priceExcVAT + (priceExcVAT * vat) / 100;
