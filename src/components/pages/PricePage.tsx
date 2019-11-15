@@ -4,24 +4,13 @@ import LabeledInput from "../LabeledInput";
 import LabeledOutput from "../LabeledOutput";
 import SegmentedInput from "../SegmentedInput";
 import Footer from "../Footer";
-import { StoreState } from "../../reducer";
-import PageContainer from "./PageContainer";
-
-type Props = StoreState & {
-  updateSegment();
-  onChange();
-  onEndEditing(key: string);
-  onFocus();
-  onReset();
-  update();
-  onBackgroundClick();
-};
+import PageContainer, { Props } from "./PageContainer";
 
 const PricePage: FC<Props> = ({
   figures,
   marginSegment,
   updateSegment,
-  onChange,
+  updateFigure,
   onEndEditing,
   onFocus,
   onReset,
@@ -38,7 +27,7 @@ const PricePage: FC<Props> = ({
             name="vat"
             label="VAT % :"
             value={figures.vat}
-            onChange={onChange}
+            onChange={updateFigure}
             onEndEditing={onEndEditing}
             onFocus={onFocus}
           />
@@ -46,12 +35,11 @@ const PricePage: FC<Props> = ({
             name="cost"
             label="Cost :"
             value={figures.cost}
-            onChange={onChange}
+            onChange={updateFigure}
             onEndEditing={onEndEditing}
             onFocus={onFocus}
           />
           <SegmentedInput
-            ukey="price"
             name="marginSegment"
             segments={[
               {
@@ -67,7 +55,7 @@ const PricePage: FC<Props> = ({
             ]}
             selected={marginSegment}
             onSelection={updateSegment}
-            onValueChange={onChange}
+            onValueChange={updateFigure}
             onEndEditing={onEndEditing}
             onFocus={onFocus}
           />

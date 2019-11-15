@@ -1,25 +1,32 @@
-import React from "react";
+import React, { FC, PureComponent } from "react";
 import { Keyboard } from "react-native";
 import { NavigationTabProp } from "react-navigation-tabs";
-import { reducer, StoreState } from "../../reducer";
+import { reducer, StoreState, Figure, Segment } from "../../reducer";
 import {
   calculate,
   reset,
   crop,
   format,
-  update,
+  updateFigure,
   updateSegment,
-  resetAll
+  resetAll,
+  Action
 } from "../../actions";
 
-export default Page =>
-  class PageContainer extends React.PureComponent<
-    NavigationTabProp,
-    StoreState
-  > {
-    keyboardHideListener;
-    didFocusSubscription;
-    didBlurSubscription;
+export type Props = StoreState & {
+  updateSegment(Segment);
+  updateFigure(Figure);
+  onEndEditing(key: string);
+  onFocus(string);
+  onReset();
+  onBackgroundClick();
+};
+
+export default (Page: FC<Props>) =>
+  class PageContainer extends PureComponent<NavigationTabProp, StoreState> {
+    keyboardListener;
+    didFocusSub;
+    didBlurSub;
     state = {
       priceSegment: 0,
       marginSegment: 0,
@@ -35,44 +42,38 @@ export default Page =>
 
     constructor(props) {
       super(props);
-      this.didFocusSubscription = props.navigation.addListener(
-        "didFocus",
-        () => {
-          this.keyboardHideListener = Keyboard.addListener(
-            "keyboardDidHide",
-            () => this.dispatch(calculate(Page.name))
-          );
-        }
-      );
-      this.didBlurSubscription = props.navigation.addListener("didBlur", () => {
-        this.keyboardHideListener.remove();
+      this.didFocusSub = props.navigation.addListener("didFocus", () => {
+        this.keyboardListener = Keyboard.addListener("keyboardDidHide", () =>
+          this.dispatch(calculate(Page.name))
+        );
       });
+      this.didBlurSub = props.navigation.addListener("didBlur", () =>
+        this.keyboardListener.remove()
+      );
     }
 
-    dispatch = action => this.setState(prevState => reducer(prevState, action));
+    dispatch = (action: Action) =>
+      this.setState(prevState => reducer(prevState, action));
 
-    onChange = payload => this.dispatch(update(payload));
-
-    onFocus = key => {
+    onFocus = (name: string) => {
       const { figures } = this.state;
-      if (figures[key] == 0 || Number.isNaN(+figures[key])) {
-        return void this.dispatch(reset(key));
+      if (figures[name] == 0 || Number.isNaN(+figures[name])) {
+        return void this.dispatch(reset(name));
       }
-      if (figures[key].endsWith(".00")) this.dispatch(crop(key));
+      if (figures[name].endsWith(".00")) this.dispatch(crop(name));
     };
 
-    onEndEditing = key => this.dispatch(format(key));
-
-    updateSegment = segment => this.dispatch(updateSegment(segment));
-
+    updateFigure = (figure: Figure) => this.dispatch(updateFigure(figure));
+    onEndEditing = (name: string) => this.dispatch(format(name));
+    updateSegment = (segment: Segment) => this.dispatch(updateSegment(segment));
     onReset = () => this.dispatch(resetAll());
 
     render() {
       return (
         <Page
-          onChange={this.onChange}
           onFocus={this.onFocus}
           onEndEditing={this.onEndEditing}
+          updateFigure={this.updateFigure}
           updateSegment={this.updateSegment}
           onReset={this.onReset}
           onBackgroundClick={Keyboard.dismiss}
@@ -82,8 +83,8 @@ export default Page =>
     }
 
     componentWillUnmount() {
-      this.keyboardHideListener && this.keyboardHideListener.remove();
-      this.didFocusSubscription.remove();
-      this.didBlurSubscription.remove();
+      this.keyboardListener && this.keyboardListener.remove();
+      this.didFocusSub.remove();
+      this.didBlurSub.remove();
     }
   };

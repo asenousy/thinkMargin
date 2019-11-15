@@ -1,4 +1,12 @@
 import { Action, ActionTypes } from "./actions";
+import { SegmentName } from "./components/SegmentedInput";
+
+export type Segment = {
+  [key in SegmentName]?: number;
+};
+export type Figure = {
+  [key in keyof StoreState["figures"]]?: string;
+};
 
 export type StoreState = {
   priceSegment?: number;
@@ -18,9 +26,7 @@ export function format(figure: string | number) {
   return figure == 0 ? "0" : (+figure).toFixed(2);
 }
 
-export function numberify(figures: {
-  [key: string]: string;
-}): { [key: string]: number } {
+export function numberify(figures: Figure): { [key: string]: number } {
   return Object.entries(figures).reduce(
     (newFigures, [key, value]) => ({ ...newFigures, [key]: +value }),
     {}

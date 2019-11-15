@@ -1,3 +1,5 @@
+import { Segment, Figure } from "./reducer";
+
 export type Action = {
   type: ActionTypes;
   payload?: any;
@@ -15,10 +17,10 @@ export enum ActionTypes {
   CALCULATE_COST = "CALCULATE_COST"
 }
 
-export const calculate = name => ({
+export const calculate = (name: string) => ({
   type: ActionTypes[`CALCULATE_${name.replace("Page", "").toUpperCase()}`]
 });
-export const updateSegment = (payload: { [name: string]: number }) => ({
+export const updateSegment = (payload: Segment) => ({
   type: ActionTypes.UPDATE_SEGMENT,
   payload
 });
@@ -26,7 +28,7 @@ export const reset = (payload: string) => ({
   type: ActionTypes.RESET,
   payload
 });
-export const update = (payload: { [name: string]: string }) => ({
+export const updateFigure = (payload: Figure) => ({
   type: ActionTypes.UPDATE,
   payload
 });

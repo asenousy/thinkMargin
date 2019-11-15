@@ -19,25 +19,23 @@ const Footer: FC<Props> = ({ onReset }) => (
     <TouchableOpacity style={styles.reset} onPress={onReset}>
       <Text style={styles.footerText}>reset</Text>
     </TouchableOpacity>
-    <TouchableOpacity
-      style={styles.info}
-      onPress={() =>
-        Alert.alert("Contact Me", "feel free to email me for any thoughts", [
-          {
-            text: "email me",
-            onPress: () =>
-              Linking.openURL(
-                `mailto:cafefrecsa@gmail.com?subject=thinkMargin v${jsVersion}`
-              )
-          },
-          { text: "cancel" }
-        ])
-      }
-    >
+    <TouchableOpacity style={styles.info} onPress={contactAlert}>
       <FontAwesome name="envelope" size={25} color="dodgerblue" />
     </TouchableOpacity>
   </View>
 );
+
+const contactAlert = () =>
+  Alert.alert("Contact Me", "feel free to email me for any thoughts", [
+    {
+      text: "email me",
+      onPress: () =>
+        Linking.openURL(
+          `mailto:cafefrecsa@gmail.com?subject=thinkMargin v${jsVersion}`
+        )
+    },
+    { text: "cancel" }
+  ]);
 
 const styles = StyleSheet.create({
   footer: {

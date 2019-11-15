@@ -48,16 +48,15 @@ const navigator = createBottomTabNavigator(
   }
 );
 
-const statusBarPaddingWrapper = () => {
-  const AppContainer = createAppContainer(navigator);
-  return (
-    <View style={styles.wrapper}>
-      <StatusBar barStyle="dark-content" />
-      <AdMobBanner adUnitID={AD_UNIT_ID} servePersonalizedAds />
-      <AppContainer />
-    </View>
-  );
-};
+const AppContainer = createAppContainer(navigator);
+
+const statusBarPaddingWrapper = () => (
+  <View style={styles.wrapper}>
+    <StatusBar barStyle="dark-content" />
+    <AdMobBanner adUnitID={AD_UNIT_ID} servePersonalizedAds />
+    <AppContainer />
+  </View>
+);
 
 const styles = StyleSheet.create({
   wrapper: {

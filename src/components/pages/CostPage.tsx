@@ -4,26 +4,14 @@ import LabeledInput from "../LabeledInput";
 import LabeledOutput from "../LabeledOutput";
 import SegmentedInput from "../SegmentedInput";
 import Footer from "../Footer";
-import { StoreState } from "../../reducer";
-import PageContainer from "./PageContainer";
-
-type Props = StoreState & {
-  updateMargin();
-  updateSegment();
-  onChange();
-  onEndEditing(key: string);
-  onFocus();
-  onReset();
-  update();
-  onBackgroundClick();
-};
+import PageContainer, { Props } from "./PageContainer";
 
 const CostPage: FC<Props> = ({
   figures,
   priceSegment,
   marginSegment,
   updateSegment,
-  onChange,
+  updateFigure,
   onEndEditing,
   onFocus,
   onReset,
@@ -40,12 +28,11 @@ const CostPage: FC<Props> = ({
             name="vat"
             label="VAT % :"
             value={figures.vat}
-            onChange={onChange}
+            onChange={updateFigure}
             onEndEditing={onEndEditing}
             onFocus={onFocus}
           />
           <SegmentedInput
-            ukey="cost"
             name="priceSegment"
             segments={[
               {
@@ -61,12 +48,11 @@ const CostPage: FC<Props> = ({
             ]}
             selected={priceSegment}
             onSelection={updateSegment}
-            onValueChange={onChange}
+            onValueChange={updateFigure}
             onEndEditing={onEndEditing}
             onFocus={onFocus}
           />
           <SegmentedInput
-            ukey="cost"
             name="marginSegment"
             segments={[
               {
@@ -82,13 +68,13 @@ const CostPage: FC<Props> = ({
             ]}
             selected={marginSegment}
             onSelection={updateSegment}
-            onValueChange={onChange}
+            onValueChange={updateFigure}
             onEndEditing={onEndEditing}
             onFocus={onFocus}
           />
         </View>
         <View style={styles.output}>
-          <LabeledOutput label="maximum Cost :" value={figures.cost} />
+          <LabeledOutput label="max. Cost :" value={figures.cost} />
         </View>
       </View>
       <Footer onReset={onReset} />

@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { FC } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 type Props = {
@@ -6,15 +6,12 @@ type Props = {
   value: string;
 };
 
-export default function LabeledOutput(props: Props): ReactElement {
-  const { label, value } = props;
-  return (
-    <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
-      <Text style={styles.label}>{value}</Text>
-    </View>
-  );
-}
+const LabeledOutput: FC<Props> = ({ label, value }) => (
+  <View style={styles.container}>
+    <Text style={styles.label}>{label}</Text>
+    <Text style={styles.label}>{value}</Text>
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -30,3 +27,5 @@ const styles = StyleSheet.create({
     fontSize: 16
   }
 });
+
+export default LabeledOutput;

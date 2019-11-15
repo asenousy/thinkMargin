@@ -1,83 +1,49 @@
-import React, { RefObject } from "react";
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  Platform,
-  TextInputProps
-} from "react-native";
+import React, { RefObject, PureComponent } from "react";
+import { StyleSheet, View, TextInput, Platform } from "react-native";
 import SegmentedControlTab from "react-native-segmented-control-tab";
+import Input from "./Input";
+import { Figure, Segment } from "../reducer";
+
+export type SegmentName = "marginSegment" | "priceSegment";
+type Segments = Array<{ name: string; label: string; value: string }>;
 
 type Props = {
-  ukey: string;
-  name: string;
-  segments: Array<{ name: string; label: string; value: string }>;
+  name: SegmentName;
+  segments: Segments;
   selected: number;
-  onSelection: (number) => void;
-  onValueChange: ({ [name]: string }) => void;
-  onFocus: (key) => void;
-  onEndEditing: (key) => void;
+  onSelection(segment: Segment): void;
+  onValueChange(figure: Figure): void;
+  onFocus(name: string): void;
+  onEndEditing(name: string): void;
 };
 
-class NamedTextInput extends React.PureComponent<
-  TextInputProps & {
-    name: string;
-    onChangeText(any): void;
-    onFocus(text): void;
-    forwardedRef: RefObject<TextInput>;
-  }
-> {
-  onChangeText = value => this.props.onChangeText({ [this.props.name]: value });
-  onFocusHandler = () => this.props.onFocus(this.props.name);
-  render() {
-    const { name, onChangeText, onFocus, forwardedRef, ...props } = this.props;
-    return (
-      <TextInput
-        ref={forwardedRef}
-        onChangeText={this.onChangeText}
-        onFocus={this.onFocusHandler}
-        {...props}
-      />
-    );
-  }
-}
-
-class SegmentedInput extends React.PureComponent<Props> {
-  inputs;
+class SegmentedInput extends PureComponent<Props> {
+  inputs: Array<RefObject<TextInput>>;
 
   constructor(props) {
     super(props);
     this.inputs = props.segments.map(() => React.createRef());
   }
 
-  onSelectionHandler = i => {
+  onSelectionHandler = (i: number) => {
     this.props.onSelection({ [this.props.name]: i });
     this.inputs[i].current.focus();
   };
 
-  onFocusHandler = name => {
+  onFocusHandler = (name: string) => {
     const i = this.props.segments.findIndex(segment => segment.name === name);
     this.props.onSelection({ [this.props.name]: i });
     this.props.onFocus(name);
   };
 
   render() {
-    const {
-      ukey,
-      segments,
-      selected,
-      onValueChange,
-      onEndEditing
-    } = this.props;
-
+    const { segments, selected, onValueChange, onEndEditing } = this.props;
     return (
       <View style={styles.container}>
         <SegmentedControlTab
-          tabStyle={{
-            backgroundColor: "aliceblue"
-          }}
-          lastTabStyle={{ borderLeftWidth: 1 }}
-          tabTextStyle={{ color: "black" }}
+          tabStyle={styles.segmentTab}
+          lastTabStyle={styles.segmentLastTab}
+          tabTextStyle={styles.segmentTabText}
           borderRadius={2}
           values={segments.map(segment => segment.label)}
           selectedIndex={selected}
@@ -85,16 +51,16 @@ class SegmentedInput extends React.PureComponent<Props> {
         />
         <View style={styles.row}>
           {segments.map(({ name, label, value }, i) => (
-            <NamedTextInput
-              key={ukey + label}
+            <Input
+              key={label}
               name={name}
               forwardedRef={this.inputs[i]}
               style={i === selected ? styles.focused : styles.unfocused}
               value={value}
-              onChangeText={onValueChange}
+              onChanged={onValueChange}
               keyboardType="numeric"
-              onFocus={this.onFocusHandler}
-              onEndEditing={() => onEndEditing(name)}
+              onFocused={this.onFocusHandler}
+              onEdited={onEndEditing}
               clearButtonMode={"while-editing"}
             />
           ))}
@@ -129,6 +95,15 @@ const styles = StyleSheet.create({
     backgroundColor: "aliceblue",
     paddingVertical: Platform.OS === "ios" ? 4 : 0,
     marginHorizontal: 2
+  },
+  segmentTab: {
+    backgroundColor: "aliceblue"
+  },
+  segmentLastTab: {
+    borderLeftWidth: 1
+  },
+  segmentTabText: {
+    color: "black"
   }
 });
 

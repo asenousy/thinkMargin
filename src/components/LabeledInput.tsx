@@ -1,37 +1,31 @@
-import React from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import React, { FC } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import Input from "./Input";
 
 type Props = {
   name: string;
   label: string;
   value: string;
-  onChange: (string) => void;
-  onEndEditing: (key: string) => void;
-  onFocus: (key: string) => void;
+  onChange(change: { [name: string]: string }): void;
+  onFocus(name: string): void;
+  onEndEditing(name: string): void;
 };
 
-class LabeledInput extends React.PureComponent<Props> {
-  onChange = value => this.props.onChange({ [this.props.name]: value });
-  onFocus = () => this.props.onFocus(this.props.name);
-  onEndEditing = () => this.props.onEndEditing(this.props.name);
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.label}>{this.props.label}</Text>
-        <TextInput
-          style={styles.input}
-          value={this.props.value}
-          onChangeText={this.onChange}
-          keyboardType="numeric"
-          onEndEditing={this.onEndEditing}
-          onFocus={this.onFocus}
-          clearButtonMode={"while-editing"}
-        />
-      </View>
-    );
-  }
-}
+const LabeledInput: FC<Props> = props => (
+  <View style={styles.container}>
+    <Text style={styles.label}>{props.label}</Text>
+    <Input
+      name={props.name}
+      style={styles.input}
+      value={props.value}
+      onChanged={props.onChange}
+      keyboardType="numeric"
+      onEdited={props.onEndEditing}
+      onFocused={props.onFocus}
+      clearButtonMode={"while-editing"}
+    />
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
