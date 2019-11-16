@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import {
   StyleSheet,
   View,
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Footer;
+export default memo(Footer);

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 type Props = {
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LabeledOutput;
+export default memo(LabeledOutput);

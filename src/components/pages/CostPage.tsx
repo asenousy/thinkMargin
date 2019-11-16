@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { StyleSheet, View, Text, TouchableWithoutFeedback } from "react-native";
 import LabeledInput from "../LabeledInput";
 import LabeledOutput from "../LabeledOutput";
@@ -107,4 +107,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PageContainer(CostPage);
+export default PageContainer(memo(CostPage));

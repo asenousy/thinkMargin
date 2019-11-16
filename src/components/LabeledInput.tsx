@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Input from "./Input";
 
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LabeledInput;
+export default memo(LabeledInput);
