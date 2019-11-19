@@ -22,7 +22,7 @@ export type Props = StoreState & {
   onBackgroundClick();
 };
 
-export default (Page: FC<Props>) =>
+export default (Page: FC<Props>, PageName: string) =>
   class PageContainer extends PureComponent<NavigationTabProp, StoreState> {
     keyboardListener;
     didFocusSub;
@@ -44,7 +44,7 @@ export default (Page: FC<Props>) =>
       super(props);
       this.didFocusSub = props.navigation.addListener("didFocus", () => {
         this.keyboardListener = Keyboard.addListener("keyboardDidHide", () =>
-          this.dispatch(calculate(Page.name))
+          this.dispatch(calculate(PageName))
         );
       });
       this.didBlurSub = props.navigation.addListener("didBlur", () =>

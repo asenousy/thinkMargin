@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PageContainer(memo(MarginPage));
+export default PageContainer(memo(MarginPage), MarginPage.name);

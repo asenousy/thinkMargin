@@ -107,4 +107,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PageContainer(memo(CostPage));
+export default PageContainer(memo(CostPage), CostPage.name);
