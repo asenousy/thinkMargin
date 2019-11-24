@@ -15,6 +15,7 @@ jobs:
           expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
           expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
       - run: npm ci
+      - run: npm test
       - run: sed -i 's/{{AD_UNIT_ID_IOS}}/${{ secrets.AD_UNIT_ID_IOS }}/g' configs.json
       - run: sed -i 's/{{AD_UNIT_ID_ANDROID}}/${{ secrets.AD_UNIT_ID_ANDROID }}/g' configs.json
-      - run: expo publish
+      - run: expo publish --release-channel production

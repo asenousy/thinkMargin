@@ -1,4 +1,5 @@
 import { Segment, Figure } from "./reducer";
+import { PageType } from "./components/pages/PageContainer";
 
 export type Action = {
   type: ActionTypes;
@@ -9,7 +10,7 @@ export enum ActionTypes {
   UPDATE_SEGMENT = "UPDATE_SEGMENT",
   RESET = "RESET",
   RESET_ALL = "RESET_ALL",
-  UPDATE = "UPDATE",
+  UPDATE_FIGURE = "UPDATE_FIGURE",
   CROP = "CROP",
   FORMAT = "FORMAT",
   CALCULATE_PRICE = "CALCULATE_PRICE",
@@ -17,8 +18,8 @@ export enum ActionTypes {
   CALCULATE_COST = "CALCULATE_COST"
 }
 
-export const calculate = (name: string) => ({
-  type: ActionTypes[`CALCULATE_${name.replace("Page", "").toUpperCase()}`]
+export const calculate = (type: PageType) => ({
+  type: ActionTypes[`CALCULATE_${type}`]
 });
 export const updateSegment = (payload: Segment) => ({
   type: ActionTypes.UPDATE_SEGMENT,
@@ -29,7 +30,7 @@ export const reset = (payload: string) => ({
   payload
 });
 export const updateFigure = (payload: Figure) => ({
-  type: ActionTypes.UPDATE,
+  type: ActionTypes.UPDATE_FIGURE,
   payload
 });
 export const crop = (payload: string) => ({

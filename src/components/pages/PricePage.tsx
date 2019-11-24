@@ -101,4 +101,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PageContainer(memo(PricePage), PricePage.name);
+export default PageContainer(memo(PricePage), "PRICE");

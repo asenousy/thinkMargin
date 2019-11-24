@@ -64,7 +64,7 @@ export function reducer(state: StoreState, { type, payload }: Action) {
       };
     }
 
-    case ActionTypes.UPDATE: {
+    case ActionTypes.UPDATE_FIGURE: {
       return {
         ...state,
         figures: {

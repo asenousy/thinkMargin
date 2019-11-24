@@ -13,6 +13,8 @@ import {
   Action
 } from "../../actions";
 
+export type PageType = "PRICE" | "MARGIN" | "COST";
+
 export type Props = StoreState & {
   updateSegment(Segment);
   updateFigure(Figure);
@@ -22,7 +24,7 @@ export type Props = StoreState & {
   onBackgroundClick();
 };
 
-export default (Page: FC<Props>, PageName: string) =>
+export default (Page: FC<Props>, Type: PageType) =>
   class PageContainer extends PureComponent<NavigationTabProp, StoreState> {
     keyboardListener;
     didFocusSub;
@@ -44,7 +46,7 @@ export default (Page: FC<Props>, PageName: string) =>
       super(props);
       this.didFocusSub = props.navigation.addListener("didFocus", () => {
         this.keyboardListener = Keyboard.addListener("keyboardDidHide", () =>
-          this.dispatch(calculate(PageName))
+          this.dispatch(calculate(Type))
         );
       });
       this.didBlurSub = props.navigation.addListener("didBlur", () =>
