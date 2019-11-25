@@ -3,6 +3,7 @@ import { StyleSheet, View, TextInput, Platform } from "react-native";
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import Input from "./Input";
 import { Figure, Segment } from "../reducer";
+import { responsive } from "../helpers";
 
 export type SegmentName = "marginSegment" | "priceSegment";
 type Segments = Array<{ name: string; label: string; value: string }>;
@@ -70,41 +71,48 @@ class SegmentedInput extends PureComponent<Props> {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 10
-  },
-  row: {
-    flexDirection: "row",
-    justifyContent: "center",
-    paddingVertical: 5
-  },
-  focused: {
-    flex: 1,
-    textAlign: "center",
-    borderRadius: 2,
-    borderWidth: 0.2,
-    borderColor: "dodgerblue",
-    backgroundColor: "white",
-    paddingVertical: Platform.OS === "ios" ? 4 : 0,
-    marginHorizontal: 2
-  },
-  unfocused: {
-    flex: 1,
-    textAlign: "center",
-    backgroundColor: "aliceblue",
-    paddingVertical: Platform.OS === "ios" ? 4 : 0,
-    marginHorizontal: 2
-  },
-  segmentTab: {
-    backgroundColor: "aliceblue"
-  },
-  segmentLastTab: {
-    borderLeftWidth: 1
-  },
-  segmentTabText: {
-    color: "black"
-  }
-});
+const styles = StyleSheet.create(
+  responsive({
+    container: {
+      padding: 10
+    },
+    row: {
+      flexDirection: "row",
+      justifyContent: "center",
+      paddingVertical: 5
+    },
+    focused: {
+      flex: 1,
+      height: 27,
+      fontSize: 15,
+      textAlign: "center",
+      borderRadius: 2,
+      borderWidth: 0.3,
+      borderColor: "dodgerblue",
+      backgroundColor: "white",
+      paddingVertical: Platform.OS === "ios" ? 4 : 0,
+      marginHorizontal: 2
+    },
+    unfocused: {
+      flex: 1,
+      height: 27,
+      fontSize: 15,
+      textAlign: "center",
+      backgroundColor: "aliceblue",
+      paddingVertical: Platform.OS === "ios" ? 4 : 0,
+      marginHorizontal: 2
+    },
+    segmentTab: {
+      backgroundColor: "aliceblue"
+    },
+    segmentLastTab: {
+      borderLeftWidth: 1
+    },
+    segmentTabText: {
+      fontSize: 14.5,
+      color: "black"
+    }
+  })
+);
 
 export default SegmentedInput;

@@ -1,5 +1,6 @@
 import React, { FC, memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { responsive } from "../helpers";
 
 type Props = {
   label: string;
@@ -13,19 +14,21 @@ const LabeledOutput: FC<Props> = ({ label, value }) => (
   </View>
 );
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    padding: 5
-  },
-  label: {
-    textAlign: "center",
-    minWidth: 70,
-    padding: 5,
-    fontWeight: "bold",
-    fontSize: 16
-  }
-});
+const styles = StyleSheet.create(
+  responsive({
+    container: {
+      flexDirection: "row",
+      justifyContent: "center",
+      padding: 5
+    },
+    label: {
+      textAlign: "center",
+      minWidth: 70,
+      padding: 5,
+      fontWeight: "bold",
+      fontSize: 16
+    }
+  })
+);
 
 export default memo(LabeledOutput);

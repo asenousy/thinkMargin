@@ -1,6 +1,7 @@
 import React, { FC, memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Input from "./Input";
+import { responsive } from "../helpers";
 
 type Props = {
   name: string;
@@ -27,24 +28,28 @@ const LabeledInput: FC<Props> = props => (
   </View>
 );
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    padding: 10
-  },
-  label: {
-    width: 120,
-    textAlign: "center",
-    padding: 5
-  },
-  input: {
-    borderRadius: 2,
-    borderWidth: 0.2,
-    borderColor: "dodgerblue",
-    backgroundColor: "white",
-    textAlign: "center",
-    width: 120
-  }
-});
+const styles = StyleSheet.create(
+  responsive({
+    container: {
+      flexDirection: "row",
+      padding: 10
+    },
+    label: {
+      fontSize: 15,
+      width: 120,
+      textAlign: "center",
+      padding: 5
+    },
+    input: {
+      fontSize: 15,
+      borderRadius: 2,
+      borderWidth: 0.3,
+      borderColor: "dodgerblue",
+      backgroundColor: "white",
+      textAlign: "center",
+      width: 120
+    }
+  })
+);
 
 export default memo(LabeledInput);

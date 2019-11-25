@@ -5,6 +5,7 @@ import LabeledOutput from "../LabeledOutput";
 import SegmentedInput from "../SegmentedInput";
 import Footer from "../Footer";
 import PageContainer, { Props } from "./PageContainer";
+import Title from "../Title";
 
 const PricePage: FC<Props> = ({
   figures,
@@ -19,7 +20,7 @@ const PricePage: FC<Props> = ({
   <TouchableWithoutFeedback onPress={onBackgroundClick}>
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.description}>Calculate Price</Text>
+        <Title>Calculate Price</Title>
       </View>
       <View style={styles.main}>
         <View>
@@ -91,13 +92,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
-  },
-  description: {
-    fontSize: 20,
-    paddingHorizontal: 40,
-    textAlign: "center",
-    fontWeight: "bold",
-    color: "dodgerblue"
   }
 });
 

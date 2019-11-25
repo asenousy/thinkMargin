@@ -5,6 +5,7 @@ import PricePage from "./components/pages/PricePage";
 import MarginPage from "./components/pages/MarginPage";
 import CostPage from "./components/pages/CostPage";
 import { FontAwesome } from "@expo/vector-icons";
+import { responsive } from "./helpers";
 
 const navigator = createBottomTabNavigator(
   {
@@ -27,14 +28,24 @@ const navigator = createBottomTabNavigator(
             var iconName = "shopping-cart";
             break;
         }
-        return <FontAwesome name={iconName} size={24} color={tintColor} />;
+        return (
+          <FontAwesome
+            name={iconName}
+            size={responsive(24)}
+            color={tintColor}
+          />
+        );
       }
     }),
     tabBarOptions: {
+      style: responsive({
+        height: 50
+      }),
+      tabStyle: responsive({ width: 200 }),
       keyboardHidesTabBar: false,
-      labelStyle: {
+      labelStyle: responsive({
         fontSize: 13
-      }
+      })
     },
     lazy: false
   }
