@@ -32,7 +32,7 @@ const contactAlert = () =>
       text: "email me",
       onPress: () =>
         Linking.openURL(
-          `mailto:cafefrecsa@gmail.com?subject=thinkMargin v${jsVersion}`
+          `mailto:hanounasoft@hotmail.com?subject=thinkMargin v${jsVersion}`
         )
     },
     { text: "cancel" }

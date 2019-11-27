@@ -1,7 +1,7 @@
 import { AsyncStorage, Alert } from "react-native";
 import * as StoreReview from "expo-store-review";
 
-const YEAR = 6 * 30 * 24 * 60 * 60 * 1000;
+const YEAR = 10 * 30 * 24 * 60 * 60 * 1000;
 const MONTH = 30 * 24 * 60 * 60 * 1000;
 const LAST_REVIEW_DATE = "lastReviewDate";
 
@@ -24,17 +24,13 @@ async function retrieveDate() {
 }
 
 const myReview = () =>
-  Alert.alert(
-    "Review the App",
-    "Enjoying the app ? please support me with a nice review",
-    [
-      {
-        text: "review",
-        onPress: StoreReview.requestReview
-      },
-      { text: "cancel" }
-    ]
-  );
+  Alert.alert("Enjoying the App ?", "please support me with a nice review :)", [
+    {
+      text: "review",
+      onPress: StoreReview.requestReview
+    },
+    { text: "cancel" }
+  ]);
 
 async function review() {
   try {
