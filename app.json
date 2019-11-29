@@ -24,6 +24,7 @@
     },
     "android": {
       "package": "com.sensoapps.asenousy.thinkmargin",
+      "versionCode": 3,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.sensoapps.asenousy.thinkmargin"
     }
   }
