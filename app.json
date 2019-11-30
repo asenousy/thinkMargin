@@ -7,7 +7,6 @@
     "platforms": ["ios", "android", "web"],
     "version": "3.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -18,11 +17,13 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "icon": "./assets/icon-ios.png",
       "supportsTablet": true,
       "bundleIdentifier": "com.sensoApps.thinkMargin",
       "appStoreUrl": "https://apps.apple.com/us/app/thinkmargin/id1042241713"
     },
     "android": {
+      "icon": "./assets/icon-android.png",
       "package": "com.sensoapps.asenousy.thinkmargin",
       "versionCode": 3,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.sensoapps.asenousy.thinkmargin"
