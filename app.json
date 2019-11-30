@@ -25,7 +25,7 @@
     "android": {
       "icon": "./assets/icon-android.png",
       "package": "com.sensoapps.asenousy.thinkmargin",
-      "versionCode": 3,
+      "versionCode": 4,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.sensoapps.asenousy.thinkmargin"
     }
   }
