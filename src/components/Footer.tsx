@@ -27,16 +27,20 @@ const Footer: FC<Props> = ({ onReset }) => (
 );
 
 const contactAlert = () =>
-  Alert.alert("Contact Me", "feel free to email me for any thoughts", [
-    {
-      text: "email me",
-      onPress: () =>
-        Linking.openURL(
-          `mailto:hanounasoft@hotmail.com?subject=thinkMargin v${jsVersion}`
-        )
-    },
-    { text: "cancel" }
-  ]);
+  Alert.alert(
+    "Contact Me",
+    "feel free to email me for any thoughts or issues",
+    [
+      {
+        text: "email me",
+        onPress: () =>
+          Linking.openURL(
+            `mailto:hanounasoft@hotmail.com?subject=thinkMargin v${jsVersion}`
+          )
+      },
+      { text: "cancel" }
+    ]
+  );
 
 const styles = StyleSheet.create(
   responsive({
