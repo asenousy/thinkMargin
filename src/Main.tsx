@@ -30,6 +30,7 @@ class Main extends PureComponent {
       nextAppState === "active"
     ) {
       storeReview();
+      // TODO: check for thinkMargin update and download new code
     }
     this.setState({ appState: nextAppState });
   };

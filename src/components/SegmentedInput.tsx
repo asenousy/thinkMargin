@@ -46,7 +46,7 @@ class SegmentedInput extends PureComponent<Props> {
           lastTabStyle={styles.segmentLastTab}
           tabTextStyle={styles.segmentTabText}
           borderRadius={2}
-          values={segments.map(segment => segment.label)}
+          values={segments.map(segment => segment.label)} // TODO: not good for PureComponent
           selectedIndex={selected}
           onTabPress={this.onSelectionHandler}
         />
