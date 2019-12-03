@@ -2,7 +2,7 @@ name: Expo Publish
 on:
   push:
     tags:
-      - test
+      - release
 jobs:
   publish:
     name: Install and publish
@@ -18,4 +18,4 @@ jobs:
       - run: npm test
       - run: sed -i 's/{{AD_UNIT_ID_IOS}}/${{ secrets.AD_UNIT_ID_IOS }}/g' configs.json
       - run: sed -i 's/{{AD_UNIT_ID_ANDROID}}/${{ secrets.AD_UNIT_ID_ANDROID }}/g' configs.json
-      # - run: expo publish --release-channel production
+      - run: expo publish --release-channel production
