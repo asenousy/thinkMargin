@@ -5,7 +5,8 @@ import {
   Alert,
   TouchableOpacity,
   Text,
-  Linking
+  Linking,
+  Platform
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { jsVersion } from "../../configs.json";
@@ -35,7 +36,7 @@ const contactAlert = () =>
         text: "email me",
         onPress: () =>
           Linking.openURL(
-            `mailto:hanounasoft@hotmail.com?subject=thinkMargin v${jsVersion}`
+            `mailto:hanounasoft@hotmail.com?subject=thinkMargin ${Platform.OS}-v${jsVersion}`
           )
       },
       { text: "cancel" }
