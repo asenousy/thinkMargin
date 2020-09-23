@@ -1,5 +1,5 @@
 {
-  "jsVersion": "3.0.0",
+  "jsVersion": "3.0.1",
   "testAdUnitID": "ca-app-pub-3940256099942544/6300978111",
   "heightBreakPoint": { "large": 1024, "xLarge": 1366 },
   "ios": {

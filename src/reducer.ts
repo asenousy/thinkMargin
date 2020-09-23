@@ -22,6 +22,7 @@ export type StoreState = {
 };
 
 export function format(figure: string | number) {
+  figure = typeof figure === 'string' ? figure.replace(/,/g, '.')  : figure;
   if (Number.isNaN(+figure)) return "0";
   return figure == 0 ? "0" : (+figure).toFixed(2);
 }
