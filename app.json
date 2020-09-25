@@ -8,15 +8,12 @@
       "android",
       "web"
     ],
-    "version": "3.0.0",
+    "version": "4.0.0",
     "orientation": "portrait",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"

@@ -5,6 +5,7 @@ import { AdMobBanner } from "expo-ads-admob";
 import Navigator from "./Navigator";
 import configs from "../configs.json";
 import storeReview from "./storeReview";
+import * as Updates from 'expo-updates';
 
 const AD_UNIT_ID = __DEV__
   ? configs.testAdUnitID
@@ -24,13 +25,21 @@ class Main extends PureComponent {
     AppState.removeEventListener("change", this.handleAppStateChange);
   }
 
-  handleAppStateChange = nextAppState => {
+  handleAppStateChange = async (nextAppState) => {
     if (
       this.state.appState.match(/inactive|background/) &&
       nextAppState === "active"
     ) {
       storeReview();
-      // TODO: check for thinkMargin update and download new code
+      try {
+        const update = await Updates.checkForUpdateAsync();
+        if (update.isAvailable) {
+          await Updates.fetchUpdateAsync();
+          await Updates.reloadAsync();
+        }
+      } catch (error) {
+        if (__DEV__) throw error;
+      }
     }
     this.setState({ appState: nextAppState });
   };
