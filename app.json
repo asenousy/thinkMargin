@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "4.0.0",
+    "version": "5.0.0",
     "orientation": "portrait",
     "splash": {
       "image": "./assets/splash.png",
@@ -27,7 +27,7 @@
     "android": {
       "icon": "./assets/icon-android.png",
       "package": "com.sensoapps.asenousy.thinkmargin",
-      "versionCode": 4,
+      "versionCode": 5,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.sensoapps.asenousy.thinkmargin"
     }
   }
