@@ -11,6 +11,7 @@
     "build:dev": "expo build:ios -t simulator --release-channel develop"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.14.1",
     "expo": "^39.0.0",
     "expo-ads-admob": "~8.3.0",
     "expo-store-review": "~2.2.0",

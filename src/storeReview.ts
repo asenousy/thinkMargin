@@ -1,5 +1,5 @@
-import { AsyncStorage, Alert } from "react-native";
 import * as StoreReview from "expo-store-review";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const YEAR = 12 * 30 * 24 * 60 * 60 * 1000;
 const MONTH = 30 * 24 * 60 * 60 * 1000;
@@ -23,21 +23,12 @@ async function retrieveDate() {
   }
 }
 
-const myReview = () =>
-  Alert.alert("Enjoying the App ?", "please support me with a nice review :)", [
-    {
-      text: "review",
-      onPress: StoreReview.requestReview
-    },
-    { text: "cancel" }
-  ]);
-
 async function review() {
   try {
     const lastReviewDate = await retrieveDate();
     if (lastReviewDate) {
       if (Date.now() - lastReviewDate > YEAR) {
-        StoreReview.isSupported() ? StoreReview.requestReview() : myReview();
+        (await StoreReview.isAvailableAsync()) && StoreReview.requestReview();
         await storeDate();
       }
     } else {
