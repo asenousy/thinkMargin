@@ -10,7 +10,7 @@ import {
   updateFigure,
   updateSegment,
   resetAll,
-  Action
+  Action,
 } from "../../actions";
 
 export type PageType = "PRICE" | "MARGIN" | "COST";
@@ -27,8 +27,6 @@ export type Props = StoreState & {
 export default (Page: FC<Props>, Type: PageType) =>
   class PageContainer extends PureComponent<NavigationTabProp, StoreState> {
     keyboardListener;
-    didFocusSub;
-    didBlurSub;
     state = {
       priceSegment: 0,
       marginSegment: 0,
@@ -38,24 +36,12 @@ export default (Page: FC<Props>, Type: PageType) =>
         margin: "",
         profit: "",
         priceIncVAT: "",
-        priceExcVAT: ""
-      }
+        priceExcVAT: "",
+      },
     };
 
-    constructor(props) {
-      super(props);
-      this.didFocusSub = props.navigation.addListener("didFocus", () => {
-        this.keyboardListener = Keyboard.addListener("keyboardDidHide", () =>
-          this.dispatch(calculate(Type))
-        );
-      });
-      this.didBlurSub = props.navigation.addListener("didBlur", () =>
-        this.keyboardListener.remove()
-      );
-    }
-
     dispatch = (action: Action) =>
-      this.setState(prevState => reducer(prevState, action));
+      this.setState((prevState) => reducer(prevState, action));
 
     onFocus = (name: string) => {
       const { figures } = this.state;
@@ -78,15 +64,12 @@ export default (Page: FC<Props>, Type: PageType) =>
           updateFigure={this.updateFigure}
           updateSegment={this.updateSegment}
           onReset={this.onReset}
-          onBackgroundClick={Keyboard.dismiss}
+          onBackgroundClick={() => {
+            Keyboard.dismiss();
+            this.dispatch(calculate(Type));
+          }}
           {...this.state}
         />
       );
-    }
-
-    componentWillUnmount() {
-      this.keyboardListener && this.keyboardListener.remove();
-      this.didFocusSub.remove();
-      this.didBlurSub.remove();
     }
   };
