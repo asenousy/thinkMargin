@@ -28,7 +28,8 @@ class Main extends PureComponent {
   handleAppStateChange = async (nextAppState) => {
     if (
       this.state.appState.match(/inactive|background/) &&
-      nextAppState === "active"
+      nextAppState === "active" &&
+      !__DEV__
     ) {
       storeReview();
       try {
