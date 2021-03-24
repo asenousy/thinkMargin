@@ -11,7 +11,7 @@ const navigator = createBottomTabNavigator(
   {
     Price: PricePage,
     Margin: MarginPage,
-    Cost: CostPage
+    Cost: CostPage,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -35,19 +35,19 @@ const navigator = createBottomTabNavigator(
             color={tintColor}
           />
         );
-      }
+      },
     }),
     tabBarOptions: {
       style: responsive({
-        height: 50
+        height: 50,
       }),
       tabStyle: responsive({ width: 200 }),
       keyboardHidesTabBar: false,
       labelStyle: responsive({
-        fontSize: 13
-      })
+        fontSize: 13,
+      }),
     },
-    lazy: false
+    lazy: false,
   }
 );
 

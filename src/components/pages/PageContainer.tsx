@@ -10,6 +10,7 @@ import {
   updateFigure,
   updateSegment,
   resetAll,
+  toggleFeedback,
   Action,
 } from "../../actions";
 
@@ -22,6 +23,7 @@ export type Props = StoreState & {
   onFocus(string);
   onReset();
   onBackgroundClick();
+  onFeedback();
 };
 
 export default (Page: FC<Props>, Type: PageType) =>
@@ -30,6 +32,7 @@ export default (Page: FC<Props>, Type: PageType) =>
     state = {
       priceSegment: 0,
       marginSegment: 0,
+      showFeedback: false,
       figures: {
         vat: "",
         cost: "",
@@ -55,6 +58,7 @@ export default (Page: FC<Props>, Type: PageType) =>
     onEndEditing = (name: string) => this.dispatch(format(name));
     updateSegment = (segment: Segment) => this.dispatch(updateSegment(segment));
     onReset = () => this.dispatch(resetAll());
+    onFeedback = () => this.dispatch(toggleFeedback());
 
     render() {
       return (
@@ -64,6 +68,7 @@ export default (Page: FC<Props>, Type: PageType) =>
           updateFigure={this.updateFigure}
           updateSegment={this.updateSegment}
           onReset={this.onReset}
+          onFeedback={this.onFeedback}
           onBackgroundClick={() => {
             Keyboard.dismiss();
             this.dispatch(calculate(Type));

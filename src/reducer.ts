@@ -11,6 +11,7 @@ export type Figure = {
 export type StoreState = {
   priceSegment?: number;
   marginSegment?: number;
+  showFeedback: boolean;
   figures: {
     vat: string;
     cost: string;
@@ -22,7 +23,7 @@ export type StoreState = {
 };
 
 export function format(figure: string | number) {
-  figure = typeof figure === 'string' ? figure.replace(/,/g, '.')  : figure;
+  figure = typeof figure === "string" ? figure.replace(/,/g, ".") : figure;
   if (Number.isNaN(+figure)) return "0";
   return figure == 0 ? "0" : (+figure).toFixed(2);
 }
@@ -39,7 +40,7 @@ export function reducer(state: StoreState, { type, payload }: Action) {
     case ActionTypes.UPDATE_SEGMENT: {
       return {
         ...state,
-        ...payload
+        ...payload,
       };
     }
 
@@ -48,8 +49,8 @@ export function reducer(state: StoreState, { type, payload }: Action) {
         ...state,
         figures: {
           ...state.figures,
-          [payload]: ""
-        }
+          [payload]: "",
+        },
       };
     }
 
@@ -60,8 +61,15 @@ export function reducer(state: StoreState, { type, payload }: Action) {
           ...Object.keys(state.figures).reduce((newFigures, key) => {
             newFigures[key] = "";
             return newFigures;
-          }, {})
-        }
+          }, {}),
+        },
+      };
+    }
+
+    case ActionTypes.TOGGLE_FEEDBACK: {
+      return {
+        ...state,
+        showFeedback: !state.showFeedback,
       };
     }
 
@@ -70,8 +78,8 @@ export function reducer(state: StoreState, { type, payload }: Action) {
         ...state,
         figures: {
           ...state.figures,
-          ...payload
-        }
+          ...payload,
+        },
       };
     }
 
@@ -80,8 +88,8 @@ export function reducer(state: StoreState, { type, payload }: Action) {
         ...state,
         figures: {
           ...state.figures,
-          [payload]: state.figures[payload].slice(0, -3)
-        }
+          [payload]: state.figures[payload].slice(0, -3),
+        },
       };
     }
 
@@ -90,8 +98,8 @@ export function reducer(state: StoreState, { type, payload }: Action) {
         ...state,
         figures: {
           ...state.figures,
-          [payload]: format(state.figures[payload])
-        }
+          [payload]: format(state.figures[payload]),
+        },
       };
     }
 
@@ -114,8 +122,8 @@ export function reducer(state: StoreState, { type, payload }: Action) {
           margin: format(margin),
           profit: format(profit),
           priceExcVAT: format(priceExcVAT),
-          priceIncVAT: format(priceIncVAT)
-        }
+          priceIncVAT: format(priceIncVAT),
+        },
       };
     }
 
@@ -138,8 +146,8 @@ export function reducer(state: StoreState, { type, payload }: Action) {
           priceExcVAT: format(priceExcVAT),
           priceIncVAT: format(priceIncVAT),
           margin: format(margin),
-          profit: format(profit)
-        }
+          profit: format(profit),
+        },
       };
     }
 
@@ -168,8 +176,8 @@ export function reducer(state: StoreState, { type, payload }: Action) {
           priceIncVAT: format(priceIncVAT),
           margin: format(margin),
           profit: format(profit),
-          cost: format(cost)
-        }
+          cost: format(cost),
+        },
       };
     }
 

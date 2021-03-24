@@ -48,11 +48,7 @@ class Main extends PureComponent {
     return (
       <View style={styles.wrapper}>
         <StatusBar barStyle="dark-content" />
-        <AdMobBanner
-          // style={styles.ad}
-          adUnitID={AD_UNIT_ID}
-          servePersonalizedAds
-        />
+        <AdMobBanner adUnitID={AD_UNIT_ID} servePersonalizedAds />
         <Navigator />
       </View>
     );
@@ -64,10 +60,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Constants.statusBarHeight,
     backgroundColor: "aliceblue",
-  },
-  ad: {
-    marginTop: Constants.statusBarHeight,
-    position: "absolute",
   },
 });
 

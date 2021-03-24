@@ -10,35 +10,37 @@ export enum ActionTypes {
   UPDATE_SEGMENT = "UPDATE_SEGMENT",
   RESET = "RESET",
   RESET_ALL = "RESET_ALL",
+  TOGGLE_FEEDBACK = "TOGGLE_FEEDBACK",
   UPDATE_FIGURE = "UPDATE_FIGURE",
   CROP = "CROP",
   FORMAT = "FORMAT",
   CALCULATE_PRICE = "CALCULATE_PRICE",
   CALCULATE_MARGIN = "CALCULATE_MARGIN",
-  CALCULATE_COST = "CALCULATE_COST"
+  CALCULATE_COST = "CALCULATE_COST",
 }
 
 export const calculate = (type: PageType) => ({
-  type: ActionTypes[`CALCULATE_${type}`]
+  type: ActionTypes[`CALCULATE_${type}`],
 });
 export const updateSegment = (payload: Segment) => ({
   type: ActionTypes.UPDATE_SEGMENT,
-  payload
+  payload,
 });
 export const reset = (payload: string) => ({
   type: ActionTypes.RESET,
-  payload
+  payload,
 });
 export const updateFigure = (payload: Figure) => ({
   type: ActionTypes.UPDATE_FIGURE,
-  payload
+  payload,
 });
 export const crop = (payload: string) => ({
   type: ActionTypes.CROP,
-  payload
+  payload,
 });
 export const format = (payload: string) => ({
   type: ActionTypes.FORMAT,
-  payload
+  payload,
 });
 export const resetAll = () => ({ type: ActionTypes.RESET_ALL });
+export const toggleFeedback = () => ({ type: ActionTypes.TOGGLE_FEEDBACK });

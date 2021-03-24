@@ -5,11 +5,12 @@ import { responsive } from "../helpers";
 
 type Props = {
   onReset(): void;
+  onFeedback(): void;
 };
 
-const Footer: FC<Props> = ({ onReset }) => (
+const Footer: FC<Props> = ({ onReset, onFeedback }) => (
   <View style={styles.footer}>
-    <TouchableOpacity style={styles.info} onPress={() => {}}>
+    <TouchableOpacity style={styles.info} onPress={onFeedback}>
       <AntDesign name="form" size={responsive(35)} color="dodgerblue" />
     </TouchableOpacity>
     <TouchableOpacity style={styles.reset} onPress={onReset}>
