@@ -5,7 +5,7 @@ import { AdMobBanner } from "expo-ads-admob";
 import Navigator from "./Navigator";
 import configs from "../configs.json";
 import storeReview from "./storeReview";
-import * as Updates from 'expo-updates';
+import * as Updates from "expo-updates";
 
 const AD_UNIT_ID = __DEV__
   ? configs.testAdUnitID
@@ -13,7 +13,7 @@ const AD_UNIT_ID = __DEV__
 
 class Main extends PureComponent {
   state = {
-    appState: AppState.currentState
+    appState: AppState.currentState,
   };
 
   componentDidMount() {
@@ -48,7 +48,11 @@ class Main extends PureComponent {
     return (
       <View style={styles.wrapper}>
         <StatusBar barStyle="dark-content" />
-        <AdMobBanner adUnitID={AD_UNIT_ID} servePersonalizedAds />
+        <AdMobBanner
+          // style={styles.ad}
+          adUnitID={AD_UNIT_ID}
+          servePersonalizedAds
+        />
         <Navigator />
       </View>
     );
@@ -59,8 +63,12 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: "aliceblue"
-  }
+    backgroundColor: "aliceblue",
+  },
+  ad: {
+    marginTop: Constants.statusBarHeight,
+    position: "absolute",
+  },
 });
 
 export default Main;

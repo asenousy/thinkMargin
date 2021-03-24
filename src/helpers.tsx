@@ -3,7 +3,7 @@ import { heightBreakPoint } from "../configs.json";
 
 const { height } = Dimensions.get("window");
 
-let scaleFactor = 1;
+let scaleFactor = 1.2;
 if (height >= heightBreakPoint.large) scaleFactor = 1.4;
 if (height >= heightBreakPoint.xLarge) scaleFactor = 1.8;
 
@@ -15,12 +15,12 @@ function scaleUp(styles) {
           ? scaleUp(value)
           : typeof value === "number"
           ? value * scaleFactor
-          : value
+          : value,
     }))
     .reduce((newStyles, style) => ({ ...newStyles, ...style }), {});
 }
 
-export const responsive = styles => {
+export const responsive = (styles) => {
   if (typeof styles === "number") return styles * scaleFactor;
   return scaleUp(styles);
 };
