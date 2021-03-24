@@ -1,11 +1,12 @@
 import React, { FC, memo } from "react";
-import { StyleSheet, View, Text, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, View, TouchableWithoutFeedback } from "react-native";
 import LabeledInput from "../LabeledInput";
 import LabeledOutput from "../LabeledOutput";
 import SegmentedInput from "../SegmentedInput";
 import Footer from "../Footer";
 import PageContainer, { Props } from "./PageContainer";
 import Title from "../Title";
+import Feedback from "../Feedback";
 
 const CostPage: FC<Props> = ({
   figures,
@@ -16,7 +17,9 @@ const CostPage: FC<Props> = ({
   onEndEditing,
   onFocus,
   onReset,
-  onBackgroundClick
+  showFeedback,
+  onFeedback,
+  onBackgroundClick,
 }) => (
   <TouchableWithoutFeedback onPress={onBackgroundClick}>
     <View style={styles.container}>
@@ -39,13 +42,13 @@ const CostPage: FC<Props> = ({
               {
                 name: "priceExcVAT",
                 label: "Price (excl. VAT)",
-                value: figures.priceExcVAT
+                value: figures.priceExcVAT,
               },
               {
                 name: "priceIncVAT",
                 label: "Price (incl. VAT)",
-                value: figures.priceIncVAT
-              }
+                value: figures.priceIncVAT,
+              },
             ]}
             selected={priceSegment}
             onSelection={updateSegment}
@@ -59,13 +62,13 @@ const CostPage: FC<Props> = ({
               {
                 name: "margin",
                 label: "Margin %",
-                value: figures.margin
+                value: figures.margin,
               },
               {
                 name: "profit",
                 label: "Profit",
-                value: figures.profit
-              }
+                value: figures.profit,
+              },
             ]}
             selected={marginSegment}
             onSelection={updateSegment}
@@ -78,27 +81,28 @@ const CostPage: FC<Props> = ({
           <LabeledOutput label="max. Cost :" value={figures.cost} />
         </View>
       </View>
-      <Footer onReset={onReset} />
+      <Footer onReset={onReset} onFeedback={onFeedback} />
+      {showFeedback && <Feedback onBackgroundPress={onFeedback} />}
     </View>
   </TouchableWithoutFeedback>
 );
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   main: {
     flex: 4,
-    alignItems: "center"
+    alignItems: "center",
   },
   output: {
-    paddingVertical: 20
+    paddingVertical: 20,
   },
   header: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });
 
 export default PageContainer(memo(CostPage), "COST");

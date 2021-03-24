@@ -26,7 +26,7 @@ const styles = StyleSheet.create(
       justifyContent: "space-between",
     },
     reset: {
-      borderWidth: 1,
+      borderWidth: 1.2,
       borderRadius: 3,
       borderColor: "dodgerblue",
       justifyContent: "center",

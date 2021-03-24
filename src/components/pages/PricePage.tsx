@@ -1,5 +1,5 @@
 import React, { FC, memo } from "react";
-import { StyleSheet, View, Text, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, View, TouchableWithoutFeedback } from "react-native";
 import LabeledInput from "../LabeledInput";
 import LabeledOutput from "../LabeledOutput";
 import SegmentedInput from "../SegmentedInput";
