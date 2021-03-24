@@ -16,6 +16,7 @@ type Props = {
   onValueChange(figure: Figure): void;
   onFocus(name: string): void;
   onEndEditing(name: string): void;
+  onSubmit(): void;
 };
 
 class SegmentedInput extends PureComponent<Props> {
@@ -32,21 +33,26 @@ class SegmentedInput extends PureComponent<Props> {
   };
 
   onFocusHandler = (name: string) => {
-    const i = this.props.segments.findIndex(segment => segment.name === name);
+    const i = this.props.segments.findIndex((segment) => segment.name === name);
     this.props.onSelection({ [this.props.name]: i });
     this.props.onFocus(name);
   };
 
   render() {
-    const { segments, selected, onValueChange, onEndEditing } = this.props;
+    const {
+      segments,
+      selected,
+      onValueChange,
+      onEndEditing,
+      onSubmit,
+    } = this.props;
     return (
       <View style={styles.container}>
         <SegmentedControlTab
           tabStyle={styles.segmentTab}
-          lastTabStyle={styles.segmentLastTab}
           tabTextStyle={styles.segmentTabText}
           borderRadius={2}
-          values={segments.map(segment => segment.label)} // TODO: not good for PureComponent
+          values={segments.map((segment) => segment.label)} // TODO: not good for PureComponent
           selectedIndex={selected}
           onTabPress={this.onSelectionHandler}
         />
@@ -63,6 +69,7 @@ class SegmentedInput extends PureComponent<Props> {
               onFocused={this.onFocusHandler}
               onEdited={onEndEditing}
               clearButtonMode={"while-editing"}
+              onSubmit={onSubmit}
             />
           ))}
         </View>
@@ -74,12 +81,12 @@ class SegmentedInput extends PureComponent<Props> {
 const styles = StyleSheet.create(
   responsive({
     container: {
-      padding: 10
+      padding: 10,
     },
     row: {
       flexDirection: "row",
       justifyContent: "center",
-      paddingVertical: 5
+      paddingVertical: 5,
     },
     focused: {
       flex: 1,
@@ -91,7 +98,7 @@ const styles = StyleSheet.create(
       borderColor: "dodgerblue",
       backgroundColor: "white",
       paddingVertical: Platform.OS === "ios" ? 4 : 0,
-      marginHorizontal: 2
+      marginHorizontal: 2,
     },
     unfocused: {
       flex: 1,
@@ -100,18 +107,15 @@ const styles = StyleSheet.create(
       textAlign: "center",
       backgroundColor: "aliceblue",
       paddingVertical: Platform.OS === "ios" ? 4 : 0,
-      marginHorizontal: 2
+      marginHorizontal: 2,
     },
     segmentTab: {
-      backgroundColor: "aliceblue"
-    },
-    segmentLastTab: {
-      borderLeftWidth: 1
+      backgroundColor: "aliceblue",
     },
     segmentTabText: {
       fontSize: 14.5,
-      color: "black"
-    }
+      color: "black",
+    },
   })
 );
 

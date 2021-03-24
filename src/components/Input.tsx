@@ -7,6 +7,7 @@ export type Props = TextInputProps & {
   onFocused(name: string): void;
   onEdited(name: string): void;
   forwardedRef?: RefObject<TextInput>;
+  onSubmit(): void;
 };
 
 class Input extends PureComponent<Props> {
@@ -31,6 +32,7 @@ class Input extends PureComponent<Props> {
         onChangeText={this.onChangeTextHandler}
         onFocus={this.onFocusHandler}
         onEndEditing={this.onEndEditngHandler}
+        onSubmitEditing={props.onSubmit}
         {...props}
       />
     );

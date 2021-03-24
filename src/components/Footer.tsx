@@ -11,7 +11,7 @@ type Props = {
 const Footer: FC<Props> = ({ onReset, onFeedback }) => (
   <View style={styles.footer}>
     <TouchableOpacity style={styles.info} onPress={onFeedback}>
-      <AntDesign name="form" size={responsive(35)} color="dodgerblue" />
+      <AntDesign name="form" size={responsive(32)} color="dodgerblue" />
     </TouchableOpacity>
     <TouchableOpacity style={styles.reset} onPress={onReset}>
       <Text style={styles.footerText}>reset</Text>
@@ -30,7 +30,7 @@ const styles = StyleSheet.create(
       borderRadius: 3,
       borderColor: "dodgerblue",
       justifyContent: "center",
-      paddingHorizontal: 15,
+      paddingHorizontal: 16,
       margin: 25,
     },
     info: {

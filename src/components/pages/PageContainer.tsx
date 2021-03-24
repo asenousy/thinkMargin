@@ -22,7 +22,7 @@ export type Props = StoreState & {
   onEndEditing(key: string);
   onFocus(string);
   onReset();
-  onBackgroundClick();
+  onSubmit();
   onFeedback();
 };
 
@@ -69,7 +69,7 @@ export default (Page: FC<Props>, Type: PageType) =>
           updateSegment={this.updateSegment}
           onReset={this.onReset}
           onFeedback={this.onFeedback}
-          onBackgroundClick={() => {
+          onSubmit={() => {
             Keyboard.dismiss();
             this.dispatch(calculate(Type));
           }}

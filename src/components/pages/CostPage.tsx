@@ -19,9 +19,9 @@ const CostPage: FC<Props> = ({
   onReset,
   showFeedback,
   onFeedback,
-  onBackgroundClick,
+  onSubmit,
 }) => (
-  <TouchableWithoutFeedback onPress={onBackgroundClick}>
+  <TouchableWithoutFeedback onPress={onSubmit}>
     <View style={styles.container}>
       <View style={styles.header}>
         <Title>Calculate Cost</Title>
@@ -35,6 +35,7 @@ const CostPage: FC<Props> = ({
             onChange={updateFigure}
             onEndEditing={onEndEditing}
             onFocus={onFocus}
+            onSubmit={onSubmit}
           />
           <SegmentedInput
             name="priceSegment"
@@ -55,6 +56,7 @@ const CostPage: FC<Props> = ({
             onValueChange={updateFigure}
             onEndEditing={onEndEditing}
             onFocus={onFocus}
+            onSubmit={onSubmit}
           />
           <SegmentedInput
             name="marginSegment"
@@ -75,6 +77,7 @@ const CostPage: FC<Props> = ({
             onValueChange={updateFigure}
             onEndEditing={onEndEditing}
             onFocus={onFocus}
+            onSubmit={onSubmit}
           />
         </View>
         <View style={styles.output}>

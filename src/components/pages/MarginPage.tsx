@@ -18,9 +18,9 @@ const MarginPage: FC<Props> = ({
   onReset,
   showFeedback,
   onFeedback,
-  onBackgroundClick,
+  onSubmit,
 }) => (
-  <TouchableWithoutFeedback onPress={onBackgroundClick}>
+  <TouchableWithoutFeedback onPress={onSubmit}>
     <View style={styles.container}>
       <View style={styles.header}>
         <Title>Calculate Margin & Profit</Title>
@@ -34,6 +34,7 @@ const MarginPage: FC<Props> = ({
             onChange={updateFigure}
             onEndEditing={onEndEditing}
             onFocus={onFocus}
+            onSubmit={onSubmit}
           />
           <LabeledInput
             name="cost"
@@ -42,6 +43,7 @@ const MarginPage: FC<Props> = ({
             onChange={updateFigure}
             onEndEditing={onEndEditing}
             onFocus={onFocus}
+            onSubmit={onSubmit}
           />
           <SegmentedInput
             name="priceSegment"
@@ -62,6 +64,7 @@ const MarginPage: FC<Props> = ({
             onValueChange={updateFigure}
             onEndEditing={onEndEditing}
             onFocus={onFocus}
+            onSubmit={onSubmit}
           />
         </View>
         <View style={styles.output}>

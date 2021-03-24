@@ -10,9 +10,10 @@ type Props = {
   onChange(change: { [name: string]: string }): void;
   onFocus(name: string): void;
   onEndEditing(name: string): void;
+  onSubmit(): void;
 };
 
-const LabeledInput: FC<Props> = props => (
+const LabeledInput: FC<Props> = (props) => (
   <View style={styles.container}>
     <Text style={styles.label}>{props.label}</Text>
     <Input
@@ -24,6 +25,7 @@ const LabeledInput: FC<Props> = props => (
       onEdited={props.onEndEditing}
       onFocused={props.onFocus}
       clearButtonMode={"while-editing"}
+      onSubmit={props.onSubmit}
     />
   </View>
 );
@@ -32,13 +34,13 @@ const styles = StyleSheet.create(
   responsive({
     container: {
       flexDirection: "row",
-      padding: 10
+      padding: 10,
     },
     label: {
       fontSize: 15,
       width: 120,
       textAlign: "center",
-      padding: 5
+      padding: 5,
     },
     input: {
       fontSize: 15,
@@ -47,8 +49,8 @@ const styles = StyleSheet.create(
       borderColor: "dodgerblue",
       backgroundColor: "white",
       textAlign: "center",
-      width: 120
-    }
+      width: 120,
+    },
   })
 );
 
