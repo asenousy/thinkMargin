@@ -31,6 +31,7 @@
         "googleMobileAdsAppId": "{{AD_UNIT_ID_ANDROID}}"
       },
       "package": "com.sensoapps.asenousy.thinkmargin",
+      "versionCode": 6,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.sensoapps.asenousy.thinkmargin"
     }
   }
