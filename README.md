@@ -4,4 +4,4 @@ A margin calculator to calculate profit, margin, cost or selling price (excl. or
 
 ## Todos
 
-- check for software update when app is resumed and then download new code
+- e2e tests
