@@ -36,7 +36,10 @@ function format(figure: string | number, percentage: boolean = false) {
 
 export function numberify(figures: Figure): { [key: string]: number } {
   return Object.entries(figures).reduce(
-    (newFigures, [key, value]) => ({ ...newFigures, [key]: +value }),
+    (newFigures, [key, value]) => ({
+      ...newFigures,
+      [key]: Numeral(value).value(),
+    }),
     {}
   );
 }
