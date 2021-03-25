@@ -8,7 +8,6 @@ export type Action = {
 
 export enum ActionTypes {
   UPDATE_SEGMENT = "UPDATE_SEGMENT",
-  RESET = "RESET",
   RESET_ALL = "RESET_ALL",
   TOGGLE_FEEDBACK = "TOGGLE_FEEDBACK",
   UPDATE_FIGURE = "UPDATE_FIGURE",
@@ -24,10 +23,6 @@ export const calculate = (type: PageType) => ({
 });
 export const updateSegment = (payload: Segment) => ({
   type: ActionTypes.UPDATE_SEGMENT,
-  payload,
-});
-export const reset = (payload: string) => ({
-  type: ActionTypes.RESET,
   payload,
 });
 export const updateFigure = (payload: Figure) => ({

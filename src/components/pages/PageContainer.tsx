@@ -4,7 +4,6 @@ import { NavigationTabProp } from "react-navigation-tabs";
 import { reducer, StoreState, Figure, Segment } from "../../reducer";
 import {
   calculate,
-  reset,
   crop,
   format,
   updateFigure,
@@ -46,13 +45,7 @@ export default (Page: FC<Props>, Type: PageType) =>
     dispatch = (action: Action) =>
       this.setState((prevState) => reducer(prevState, action));
 
-    onFocus = (name: string) => {
-      const { figures } = this.state;
-      if (figures[name] == 0 || Number.isNaN(+figures[name])) {
-        return void this.dispatch(reset(name));
-      }
-      if (figures[name].endsWith(".00")) this.dispatch(crop(name));
-    };
+    onFocus = (name: string) => this.dispatch(crop(name));
 
     updateFigure = (figure: Figure) => this.dispatch(updateFigure(figure));
     onEndEditing = (name: string) => this.dispatch(format(name));

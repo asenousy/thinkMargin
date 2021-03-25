@@ -1,5 +1,10 @@
+import * as Localization from "expo-localization";
 import { Action, ActionTypes } from "./actions";
 import { SegmentName } from "./components/SegmentedInput";
+import Numeral from "numeral";
+import "numeral/locales";
+
+Numeral.locale(Localization.locale);
 
 export type Segment = {
   [key in SegmentName]?: number;
@@ -22,10 +27,11 @@ export type StoreState = {
   };
 };
 
-export function format(figure: string | number) {
-  figure = typeof figure === "string" ? figure.replace(/,/g, ".") : figure;
-  if (Number.isNaN(+figure)) return "0";
-  return figure == 0 ? "0" : (+figure).toFixed(2);
+function format(figure: string | number, percentage: boolean = false) {
+  const formatted = Numeral(figure).format("0,0.00");
+  return percentage && formatted.endsWith(".00")
+    ? formatted.slice(0, -3)
+    : formatted;
 }
 
 export function numberify(figures: Figure): { [key: string]: number } {
@@ -41,16 +47,6 @@ export function reducer(state: StoreState, { type, payload }: Action) {
       return {
         ...state,
         ...payload,
-      };
-    }
-
-    case ActionTypes.RESET: {
-      return {
-        ...state,
-        figures: {
-          ...state.figures,
-          [payload]: "",
-        },
       };
     }
 
@@ -84,11 +80,15 @@ export function reducer(state: StoreState, { type, payload }: Action) {
     }
 
     case ActionTypes.CROP: {
+      const figure = Numeral(state.figures[payload]);
+      const formatted = +figure.value() === 0 ? "" : figure.format("0.00");
       return {
         ...state,
         figures: {
           ...state.figures,
-          [payload]: state.figures[payload].slice(0, -3),
+          [payload]: formatted.endsWith(".00")
+            ? formatted.slice(0, -3)
+            : formatted,
         },
       };
     }
@@ -98,7 +98,10 @@ export function reducer(state: StoreState, { type, payload }: Action) {
         ...state,
         figures: {
           ...state.figures,
-          [payload]: format(state.figures[payload]),
+          [payload]: format(
+            state.figures[payload],
+            payload === "vat" || payload === "margin"
+          ),
         },
       };
     }
@@ -117,9 +120,9 @@ export function reducer(state: StoreState, { type, payload }: Action) {
       return {
         ...state,
         figures: {
-          vat: format(vat),
+          vat: format(vat, true),
           cost: format(cost),
-          margin: format(margin),
+          margin: format(margin, true),
           profit: format(profit),
           priceExcVAT: format(priceExcVAT),
           priceIncVAT: format(priceIncVAT),
@@ -141,11 +144,11 @@ export function reducer(state: StoreState, { type, payload }: Action) {
       return {
         ...state,
         figures: {
-          vat: format(vat),
+          vat: format(vat, true),
           cost: format(cost),
           priceExcVAT: format(priceExcVAT),
           priceIncVAT: format(priceIncVAT),
-          margin: format(margin),
+          margin: format(margin, true),
           profit: format(profit),
         },
       };
@@ -171,10 +174,10 @@ export function reducer(state: StoreState, { type, payload }: Action) {
       return {
         ...state,
         figures: {
-          vat: format(vat),
+          vat: format(vat, true),
           priceExcVAT: format(priceExcVAT),
           priceIncVAT: format(priceIncVAT),
-          margin: format(margin),
+          margin: format(margin, true),
           profit: format(profit),
           cost: format(cost),
         },
