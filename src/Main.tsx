@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
-import { StyleSheet, View, Platform, StatusBar, AppState } from "react-native";
+import { StyleSheet, View, Platform, AppState } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { AdMobBanner } from "expo-ads-admob";
 import Navigator from "./Navigator";
@@ -48,7 +49,7 @@ class Main extends PureComponent {
   render() {
     return (
       <View style={styles.wrapper}>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar style="auto" />
         <AdMobBanner adUnitID={AD_UNIT_ID} servePersonalizedAds />
         <Navigator />
       </View>
