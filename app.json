@@ -25,6 +25,7 @@
       "bundleIdentifier": "com.sensoApps.thinkMargin"
     },
     "android": {
+      "permissions" : [],
       "icon": "./assets/icon-android.png",
       "softwareKeyboardLayoutMode": "pan",
       "config": {
