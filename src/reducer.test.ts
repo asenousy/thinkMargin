@@ -1,15 +1,14 @@
-import { reducer, format, numberify, StoreState } from "./reducer";
+import { reducer, format, numberify, StoreState, Figure } from "./reducer";
 import {
   updateSegment,
-  reset,
   resetAll,
   updateFigure,
   crop,
   calculate,
-  format as formatAction
+  format as formatAction,
 } from "./actions";
 
-global.__DEV__ = true;
+(global as any).__DEV__ = true;
 
 test("format numbers", () => {
   expect(format(NaN)).toBe("0");
@@ -22,9 +21,9 @@ test("format numbers", () => {
 });
 
 test("numberify", () => {
-  expect(numberify({ cost: "10", price: "15.64" })).toEqual({
+  expect(numberify({ cost: "10", price: "15.64" } as Figure)).toEqual({
     cost: 10,
-    price: 15.64
+    price: 15.64,
   });
 });
 
@@ -32,46 +31,39 @@ test("UPDATE_SEGMENT", () => {
   const state = { marginSegment: 0, priceSegment: 0 } as StoreState;
   expect(reducer(state, updateSegment({ marginSegment: 1 }))).toEqual({
     marginSegment: 1,
-    priceSegment: 0
+    priceSegment: 0,
   });
   expect(reducer(state, updateSegment({ priceSegment: 1 }))).toEqual({
     marginSegment: 0,
-    priceSegment: 1
-  });
-});
-
-test("RESET", () => {
-  const state = { figures: { cost: "20", margin: "20" } } as StoreState;
-  expect(reducer(state, reset("margin"))).toEqual({
-    figures: { cost: "20", margin: "" }
+    priceSegment: 1,
   });
 });
 
 test("RESET_ALL", () => {
   const state = { figures: { cost: "20", margin: "20" } } as StoreState;
   expect(reducer(state, resetAll())).toEqual({
-    figures: { cost: "", margin: "" }
+    figures: { cost: "", margin: "" },
   });
 });
 
 test("UPDATE_FIGURE", () => {
   const state = { figures: { cost: "20", margin: "20" } } as StoreState;
   expect(reducer(state, updateFigure({ margin: "5" }))).toEqual({
-    figures: { cost: "20", margin: "5" }
+    figures: { cost: "20", margin: "5" },
   });
 });
 
 test("CROP", () => {
   const state = { figures: { cost: "20", margin: "20.00" } } as StoreState;
   expect(reducer(state, crop("margin"))).toEqual({
-    figures: { cost: "20", margin: "20" }
+    figures: { cost: "20", margin: "20" },
   });
 });
 
 test("FORMAT", () => {
   const state = { figures: { cost: "20", margin: "20" } } as StoreState;
   expect(reducer(state, formatAction("margin"))).toEqual({
-    figures: { cost: "20", margin: "20.00" }
+    figures: { cost: "20", margin: "20.00" },
   });
 });
 
@@ -82,7 +74,7 @@ test("CALCULATE_PRICE", () => {
     reducer(
       {
         marginSegment: 0,
-        figures: { ...figures, margin: "40" }
+        figures: { ...figures, margin: "40" },
       } as StoreState,
       calculate("PRICE")
     )
@@ -93,8 +85,8 @@ test("CALCULATE_PRICE", () => {
       margin: "40.00",
       profit: "6.67",
       priceExcVAT: "16.67",
-      priceIncVAT: "20.00"
-    }
+      priceIncVAT: "20.00",
+    },
   });
 
   expect(
@@ -109,8 +101,8 @@ test("CALCULATE_PRICE", () => {
       margin: "60.00",
       profit: "15.00",
       priceExcVAT: "25.00",
-      priceIncVAT: "30.00"
-    }
+      priceIncVAT: "30.00",
+    },
   });
 
   expect(
@@ -125,8 +117,8 @@ test("CALCULATE_PRICE", () => {
       margin: "50.00",
       profit: "10.00",
       priceExcVAT: "20.00",
-      priceIncVAT: "24.00"
-    }
+      priceIncVAT: "24.00",
+    },
   });
 });
 
@@ -137,7 +129,7 @@ test("CALCULATE_MARGIN", () => {
     reducer(
       {
         priceSegment: 0,
-        figures: { ...figures, priceExcVAT: "24" }
+        figures: { ...figures, priceExcVAT: "24" },
       } as StoreState,
       calculate("MARGIN")
     )
@@ -148,15 +140,15 @@ test("CALCULATE_MARGIN", () => {
       margin: "58.33",
       profit: "14.00",
       priceExcVAT: "24.00",
-      priceIncVAT: "28.80"
-    }
+      priceIncVAT: "28.80",
+    },
   });
 
   expect(
     reducer(
       {
         priceSegment: 1,
-        figures: { ...figures, priceIncVAT: "20" }
+        figures: { ...figures, priceIncVAT: "20" },
       } as StoreState,
       calculate("MARGIN")
     )
@@ -167,8 +159,8 @@ test("CALCULATE_MARGIN", () => {
       margin: "40.00",
       profit: "6.67",
       priceExcVAT: "16.67",
-      priceIncVAT: "20.00"
-    }
+      priceIncVAT: "20.00",
+    },
   });
 });
 
@@ -179,7 +171,7 @@ test("CALCULATE_COST", () => {
       {
         priceSegment: 0,
         marginSegment: 0,
-        figures: { ...figures, margin: "50", priceExcVAT: "24" }
+        figures: { ...figures, margin: "50", priceExcVAT: "24" },
       } as StoreState,
       calculate("COST")
     )
@@ -190,8 +182,8 @@ test("CALCULATE_COST", () => {
       margin: "50.00",
       profit: "12.00",
       priceExcVAT: "24.00",
-      priceIncVAT: "28.80"
-    }
+      priceIncVAT: "28.80",
+    },
   });
 
   expect(
@@ -199,7 +191,7 @@ test("CALCULATE_COST", () => {
       {
         priceSegment: 1,
         marginSegment: 0,
-        figures: { ...figures, margin: "50", priceIncVAT: "24" }
+        figures: { ...figures, margin: "50", priceIncVAT: "24" },
       } as StoreState,
       calculate("COST")
     )
@@ -210,8 +202,8 @@ test("CALCULATE_COST", () => {
       margin: "50.00",
       profit: "10.00",
       priceExcVAT: "20.00",
-      priceIncVAT: "24.00"
-    }
+      priceIncVAT: "24.00",
+    },
   });
 
   expect(
@@ -219,7 +211,7 @@ test("CALCULATE_COST", () => {
       {
         priceSegment: 0,
         marginSegment: 1,
-        figures: { ...figures, priceExcVAT: "20", profit: "10" }
+        figures: { ...figures, priceExcVAT: "20", profit: "10" },
       } as StoreState,
       calculate("COST")
     )
@@ -230,8 +222,8 @@ test("CALCULATE_COST", () => {
       margin: "50.00",
       profit: "10.00",
       priceExcVAT: "20.00",
-      priceIncVAT: "24.00"
-    }
+      priceIncVAT: "24.00",
+    },
   });
 
   expect(
@@ -239,7 +231,7 @@ test("CALCULATE_COST", () => {
       {
         priceSegment: 1,
         marginSegment: 1,
-        figures: { ...figures, priceIncVAT: "24", profit: "10" }
+        figures: { ...figures, priceIncVAT: "24", profit: "10" },
       } as StoreState,
       calculate("COST")
     )
@@ -250,7 +242,7 @@ test("CALCULATE_COST", () => {
       margin: "50.00",
       profit: "10.00",
       priceExcVAT: "20.00",
-      priceIncVAT: "24.00"
-    }
+      priceIncVAT: "24.00",
+    },
   });
 });

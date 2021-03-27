@@ -29,7 +29,7 @@ export type StoreState = {
   };
 };
 
-function format(figure: string | number, percentage: boolean = false) {
+export function format(figure: string | number, percentage: boolean = false) {
   const formatted = Numeral(figure).format("0,0.00");
   return percentage && (formatted.endsWith(".00") || formatted.endsWith(",00"))
     ? formatted.slice(0, -3)
