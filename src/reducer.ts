@@ -4,7 +4,9 @@ import { SegmentName } from "./components/SegmentedInput";
 import Numeral from "numeral";
 import "numeral/locales";
 
-Numeral.locale(Localization.locale);
+Numeral.locale(
+  Numeral.locales[Localization.locale] ? Localization.locale : "en"
+);
 
 export type Segment = {
   [key in SegmentName]?: number;
@@ -29,7 +31,7 @@ export type StoreState = {
 
 function format(figure: string | number, percentage: boolean = false) {
   const formatted = Numeral(figure).format("0,0.00");
-  return percentage && formatted.endsWith(".00")
+  return percentage && (formatted.endsWith(".00") || formatted.endsWith(",00"))
     ? formatted.slice(0, -3)
     : formatted;
 }
@@ -89,9 +91,10 @@ export function reducer(state: StoreState, { type, payload }: Action) {
         ...state,
         figures: {
           ...state.figures,
-          [payload]: formatted.endsWith(".00")
-            ? formatted.slice(0, -3)
-            : formatted,
+          [payload]:
+            formatted.endsWith(".00") || formatted.endsWith(",00")
+              ? formatted.slice(0, -3)
+              : formatted,
         },
       };
     }
