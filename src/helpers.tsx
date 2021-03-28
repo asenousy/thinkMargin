@@ -16,7 +16,7 @@ function scaleUp(styles) {
       [key]:
         typeof value === "object"
           ? scaleUp(value)
-          : typeof value === "number"
+          : typeof value === "number" && key !== "flex"
           ? value * scaleFactor
           : value,
     }))
