@@ -7,6 +7,7 @@ import Footer from "../Footer";
 import PageContainer, { Props } from "./PageContainer";
 import Title from "../Title";
 import Feedback from "../Feedback";
+import { colours } from "../../constants.json";
 
 const MarginPage: FC<Props> = ({
   figures,
@@ -81,6 +82,7 @@ const MarginPage: FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colours.background,
   },
   main: {
     flex: 2,

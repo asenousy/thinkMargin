@@ -2,6 +2,7 @@ import React, { FC, memo } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { responsive } from "../helpers";
+import { colours } from "../constants.json";
 
 type Props = {
   onReset(): void;
@@ -11,7 +12,7 @@ type Props = {
 const Footer: FC<Props> = ({ onReset, onFeedback }) => (
   <View style={styles.footer}>
     <TouchableOpacity style={styles.info} onPress={onFeedback}>
-      <AntDesign name="form" size={responsive(32)} color="dodgerblue" />
+      <AntDesign name="form" size={responsive(32)} color={colours.border} />
     </TouchableOpacity>
     <TouchableOpacity style={styles.reset} onPress={onReset}>
       <Text style={styles.footerText}>reset</Text>
@@ -28,7 +29,7 @@ const styles = StyleSheet.create(
     reset: {
       borderWidth: 1.2,
       borderRadius: 3,
-      borderColor: "dodgerblue",
+      borderColor: colours.border,
       justifyContent: "center",
       paddingHorizontal: 16,
       margin: 25,
@@ -39,7 +40,7 @@ const styles = StyleSheet.create(
     },
     footerText: {
       fontSize: 15,
-      color: "dodgerblue",
+      color: colours.border,
     },
   })
 );

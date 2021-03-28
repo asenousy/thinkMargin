@@ -2,6 +2,7 @@ import React, { FC, memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Input from "./Input";
 import { responsive } from "../helpers";
+import { colours } from "../constants.json";
 
 type Props = {
   name: string;
@@ -46,7 +47,7 @@ const styles = StyleSheet.create(
       fontSize: 15,
       borderRadius: 2,
       borderWidth: 0.3,
-      borderColor: "dodgerblue",
+      borderColor: colours.border,
       backgroundColor: "white",
       textAlign: "center",
       width: 120,

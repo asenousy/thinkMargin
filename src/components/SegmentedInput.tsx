@@ -4,6 +4,7 @@ import SegmentedControlTab from "react-native-segmented-control-tab";
 import Input from "./Input";
 import { Figure, Segment } from "../reducer";
 import { responsive } from "../helpers";
+import { colours } from "../constants.json";
 
 export type SegmentName = "marginSegment" | "priceSegment";
 type Segments = Array<{ name: string; label: string; value: string }>;
@@ -95,7 +96,7 @@ const styles = StyleSheet.create(
       textAlign: "center",
       borderRadius: 2,
       borderWidth: 0.3,
-      borderColor: "dodgerblue",
+      borderColor: colours.border,
       backgroundColor: "white",
       paddingVertical: Platform.OS === "ios" ? 4 : 0,
       marginHorizontal: 2,
@@ -105,12 +106,12 @@ const styles = StyleSheet.create(
       height: 27,
       fontSize: 15,
       textAlign: "center",
-      backgroundColor: "aliceblue",
+      backgroundColor: colours.background,
       paddingVertical: Platform.OS === "ios" ? 4 : 0,
       marginHorizontal: 2,
     },
     segmentTab: {
-      backgroundColor: "aliceblue",
+      backgroundColor: colours.background,
     },
     segmentTabText: {
       fontSize: 14.5,

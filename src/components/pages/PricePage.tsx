@@ -7,6 +7,7 @@ import Footer from "../Footer";
 import PageContainer, { Props } from "./PageContainer";
 import Title from "../Title";
 import Feedback from "../Feedback";
+import { colours } from "../../constants.json";
 
 const PricePage: FC<Props> = ({
   figures,
@@ -87,6 +88,7 @@ const PricePage: FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colours.background,
   },
   main: {
     flex: 2,

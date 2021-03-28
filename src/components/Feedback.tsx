@@ -11,6 +11,7 @@ import {
 import { jsVersion } from "../../configs.json";
 import { responsive } from "../helpers";
 import * as StoreReview from "expo-store-review";
+import { colours } from "../constants.json";
 
 type Props = {
   onBackgroundPress: () => void;
@@ -68,7 +69,7 @@ const styles = StyleSheet.create(
     },
     modal: {
       borderRadius: 10,
-      backgroundColor: "aliceblue",
+      backgroundColor: colours.background,
       maxWidth: 285,
       padding: 20,
       alignItems: "center",
@@ -80,7 +81,7 @@ const styles = StyleSheet.create(
       textAlign: "center",
     },
     button: {
-      backgroundColor: "#D8E7EE",
+      backgroundColor: colours.button,
       fontSize: 14,
       borderRadius: 10,
       margin: 10,
