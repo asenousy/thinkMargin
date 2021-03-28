@@ -2,7 +2,7 @@
   "expo": {
     "name": "thinkMargin",
     "slug": "think-margin",
-    "version": "6.0.0",
+    "version": "7.0.0",
     "privacy": "public",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -33,7 +33,7 @@
         "googleMobileAdsAppId": "{{AD_UNIT_ID_ANDROID}}"
       },
       "package": "com.sensoapps.asenousy.thinkmargin",
-      "versionCode": 6,
+      "versionCode": 7,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.sensoapps.asenousy.thinkmargin"
     }
   }
