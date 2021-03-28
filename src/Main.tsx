@@ -7,6 +7,7 @@ import Navigator from "./Navigator";
 import configs from "../configs.json";
 import storeReview from "./storeReview";
 import * as Updates from "expo-updates";
+import { colours } from "./constants.json";
 
 const AD_UNIT_ID = __DEV__
   ? configs.testAdUnitID
@@ -50,7 +51,11 @@ class Main extends PureComponent {
     return (
       <View style={styles.wrapper}>
         <StatusBar style="auto" />
-        <AdMobBanner adUnitID={AD_UNIT_ID} servePersonalizedAds />
+        <AdMobBanner
+          style={styles.banner}
+          adUnitID={AD_UNIT_ID}
+          servePersonalizedAds
+        />
         <Navigator />
       </View>
     );
@@ -61,6 +66,9 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
+  },
+  banner: {
+    backgroundColor: colours.background,
   },
 });
 
