@@ -3,7 +3,7 @@ import { heightBreakPoint } from "../configs.json";
 
 const { height } = Dimensions.get("window");
 
-let scaleFactor = 1.1;
+let scaleFactor = 1.15;
 if (height < heightBreakPoint.small) scaleFactor = 1;
 if (height < heightBreakPoint.xSmall) scaleFactor = 0.9;
 if (height < heightBreakPoint.xxSmall) scaleFactor = 0.8;

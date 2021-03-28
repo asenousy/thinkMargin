@@ -23,10 +23,10 @@ const CostPage: FC<Props> = ({
 }) => (
   <TouchableWithoutFeedback onPress={onSubmit}>
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Title>Calculate Cost</Title>
-      </View>
       <View style={styles.main}>
+        <View style={styles.header}>
+          <Title>Calculate Cost</Title>
+        </View>
         <View>
           <LabeledInput
             name="vat"
@@ -95,14 +95,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   main: {
-    flex: 4,
+    flex: 2,
     alignItems: "center",
+    justifyContent: "center",
   },
   output: {
     paddingVertical: 20,
   },
   header: {
-    flex: 1,
+    marginVertical: 30,
     alignItems: "center",
     justifyContent: "center",
   },
