@@ -1,3 +1,4 @@
+jest.mock("expo-localization", () => ({}));
 import { reducer, format, numberify, StoreState, Figure } from "./reducer";
 import {
   updateSegment,
@@ -11,8 +12,8 @@ import {
 (global as any).__DEV__ = true;
 
 test("format numbers", () => {
-  expect(format(NaN)).toBe("0");
-  expect(format(0.0)).toBe("0");
+  expect(format(NaN)).toBe("0.00");
+  expect(format(0.0)).toBe("0.00");
   expect(format(1)).toBe("1.00");
   expect(format(1.3)).toBe("1.30");
   expect(format(1.35)).toBe("1.35");
@@ -63,7 +64,7 @@ test("CROP", () => {
 test("FORMAT", () => {
   const state = { figures: { cost: "20", margin: "20" } } as StoreState;
   expect(reducer(state, formatAction("margin"))).toEqual({
-    figures: { cost: "20", margin: "20.00" },
+    figures: { cost: "20", margin: "20" },
   });
 });
 
@@ -80,9 +81,9 @@ test("CALCULATE_PRICE", () => {
     )
   ).toMatchObject({
     figures: {
-      vat: "20.00",
+      vat: "20",
       cost: "10.00",
-      margin: "40.00",
+      margin: "40",
       profit: "6.67",
       priceExcVAT: "16.67",
       priceIncVAT: "20.00",
@@ -96,9 +97,9 @@ test("CALCULATE_PRICE", () => {
     )
   ).toMatchObject({
     figures: {
-      vat: "20.00",
+      vat: "20",
       cost: "10.00",
-      margin: "60.00",
+      margin: "60",
       profit: "15.00",
       priceExcVAT: "25.00",
       priceIncVAT: "30.00",
@@ -112,9 +113,9 @@ test("CALCULATE_PRICE", () => {
     )
   ).toMatchObject({
     figures: {
-      vat: "20.00",
+      vat: "20",
       cost: "10.00",
-      margin: "50.00",
+      margin: "50",
       profit: "10.00",
       priceExcVAT: "20.00",
       priceIncVAT: "24.00",
@@ -135,7 +136,7 @@ test("CALCULATE_MARGIN", () => {
     )
   ).toMatchObject({
     figures: {
-      vat: "20.00",
+      vat: "20",
       cost: "10.00",
       margin: "58.33",
       profit: "14.00",
@@ -154,9 +155,9 @@ test("CALCULATE_MARGIN", () => {
     )
   ).toMatchObject({
     figures: {
-      vat: "20.00",
+      vat: "20",
       cost: "10.00",
-      margin: "40.00",
+      margin: "40",
       profit: "6.67",
       priceExcVAT: "16.67",
       priceIncVAT: "20.00",
@@ -177,9 +178,9 @@ test("CALCULATE_COST", () => {
     )
   ).toMatchObject({
     figures: {
-      vat: "20.00",
+      vat: "20",
       cost: "12.00",
-      margin: "50.00",
+      margin: "50",
       profit: "12.00",
       priceExcVAT: "24.00",
       priceIncVAT: "28.80",
@@ -197,9 +198,9 @@ test("CALCULATE_COST", () => {
     )
   ).toMatchObject({
     figures: {
-      vat: "20.00",
+      vat: "20",
       cost: "10.00",
-      margin: "50.00",
+      margin: "50",
       profit: "10.00",
       priceExcVAT: "20.00",
       priceIncVAT: "24.00",
@@ -217,9 +218,9 @@ test("CALCULATE_COST", () => {
     )
   ).toMatchObject({
     figures: {
-      vat: "20.00",
+      vat: "20",
       cost: "10.00",
-      margin: "50.00",
+      margin: "50",
       profit: "10.00",
       priceExcVAT: "20.00",
       priceIncVAT: "24.00",
@@ -237,9 +238,9 @@ test("CALCULATE_COST", () => {
     )
   ).toMatchObject({
     figures: {
-      vat: "20.00",
+      vat: "20",
       cost: "10.00",
-      margin: "50.00",
+      margin: "50",
       profit: "10.00",
       priceExcVAT: "20.00",
       priceIncVAT: "24.00",
