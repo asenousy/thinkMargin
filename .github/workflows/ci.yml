@@ -8,12 +8,14 @@ jobs:
     name: Install and publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-      - uses: expo/expo-github-action@v4
         with:
-          expo-username: ${{ secrets.EXPO_CLI_USERNAME }}
-          expo-password: ${{ secrets.EXPO_CLI_PASSWORD }}
+          node-version: 15.10.x
+      - uses: expo/expo-github-action@v5
+        with:
+          expo-version: 4.3.x
+          expo-token: ${{ secrets.EXPO_TOKEN }}}
       - run: npm ci
       - run: npm test
       - run: sed -i 's/{{AD_UNIT_ID_IOS}}/${{ secrets.AD_UNIT_ID_IOS_OUTSIDE }}/g' app.json
