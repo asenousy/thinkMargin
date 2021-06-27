@@ -1,7 +1,13 @@
 {
-  "jsVersion": "7.0.3",
+  "jsVersion": "7.0.4",
   "testAdUnitID": "ca-app-pub-3940256099942544/6300978111",
-  "heightBreakPoint": { "xxSmall": 500, "xSmall": 600, "small": 700, "large": 1024, "xLarge": 1366 },
+  "heightBreakPoint": {
+    "xxSmall": 500,
+    "xSmall": 600,
+    "small": 700,
+    "large": 1024,
+    "xLarge": 1366
+  },
   "ios": {
     "adUnitID": "{{AD_UNIT_ID_IOS}}"
   },
