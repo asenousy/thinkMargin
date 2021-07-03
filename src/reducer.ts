@@ -1,12 +1,7 @@
-import * as Localization from "expo-localization";
+import { locale } from "expo-localization";
 import { Action, ActionTypes } from "./actions";
 import { SegmentName } from "./components/SegmentedInput";
-import Numeral from "numeral";
-import "numeral/locales";
-
-Numeral.locale(
-  Numeral.locales[Localization.locale] ? Localization.locale : "en"
-);
+import { LocaleParser } from "./helpers";
 
 export type Segment = {
   [key in SegmentName]?: number;
@@ -29,18 +24,26 @@ export type StoreState = {
   };
 };
 
-export function format(figure: string | number, percentage: boolean = false) {
-  const formatted = Numeral(figure).format("0,0.00");
-  return percentage && (formatted.endsWith(".00") || formatted.endsWith(",00"))
-    ? formatted.slice(0, -3)
-    : formatted;
+const parser = LocaleParser(locale);
+
+export function format(
+  figure: number,
+  percentage: boolean = false,
+  useGrouping: boolean = true
+) {
+  if (Number.isNaN(figure)) return percentage ? "0" : "0.00";
+  return figure.toLocaleString(locale, {
+    minimumFractionDigits: percentage ? 0 : 2,
+    maximumFractionDigits: 2,
+    useGrouping,
+  });
 }
 
 export function numberify(figures: Figure): { [key: string]: number } {
   return Object.entries(figures).reduce(
     (newFigures, [key, value]) => ({
       ...newFigures,
-      [key]: Numeral(value).value(),
+      [key]: parser(value),
     }),
     {}
   );
@@ -85,16 +88,12 @@ export function reducer(state: StoreState, { type, payload }: Action) {
     }
 
     case ActionTypes.CROP: {
-      const figure = Numeral(state.figures[payload]);
-      const formatted = +figure.value() === 0 ? "" : figure.format("0.00");
+      const figure = parser(state.figures[payload]);
       return {
         ...state,
         figures: {
           ...state.figures,
-          [payload]:
-            formatted.endsWith(".00") || formatted.endsWith(",00")
-              ? formatted.slice(0, -3)
-              : formatted,
+          [payload]: figure === 0 ? "" : format(figure, true, false),
         },
       };
     }

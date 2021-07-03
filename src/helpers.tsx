@@ -27,3 +27,21 @@ export const responsive = (styles) => {
   if (typeof styles === "number") return styles * scaleFactor;
   return scaleUp(styles);
 };
+
+const getSeperators = (locale: string) => {
+  const formatter = new Intl.NumberFormat(locale);
+  const parts = formatter.formatToParts(5000.5);
+
+  const group = parts.find((part) => part.type === "group").value;
+  const decimal = parts.find((part) => part.type === "decimal").value;
+
+  return [group, decimal];
+};
+
+export const LocaleParser = (locale: string) => {
+  const [groupSeperator, decimalSeperator] = getSeperators(locale);
+  const groupRegex = new RegExp("\\" + groupSeperator, "g");
+  const decimalRegex = new RegExp("\\" + decimalSeperator, "g");
+  return (number: string) =>
+    Number(number.replace(groupRegex, "").replace(decimalRegex, "."));
+};
