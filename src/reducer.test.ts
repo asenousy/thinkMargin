@@ -1,5 +1,5 @@
 jest.mock("expo-localization", () => ({}));
-import { reducer, format, numberify, StoreState, Figure } from "./reducer";
+import { reducer, numberify, StoreState, Figure } from "./reducer";
 import {
   updateSegment,
   resetAll,
@@ -10,16 +10,6 @@ import {
 } from "./actions";
 
 (global as any).__DEV__ = true;
-
-test("format numbers", () => {
-  expect(format(NaN)).toBe("0.00");
-  expect(format(0.0)).toBe("0.00");
-  expect(format(1)).toBe("1.00");
-  expect(format(1.3)).toBe("1.30");
-  expect(format(1.35)).toBe("1.35");
-  expect(format(1.352)).toBe("1.35");
-  expect(format(1.358)).toBe("1.36");
-});
 
 test("numberify", () => {
   expect(numberify({ cost: "10", price: "15.64" } as Figure)).toEqual({

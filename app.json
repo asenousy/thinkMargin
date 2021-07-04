@@ -2,7 +2,7 @@
   "expo": {
     "name": "thinkMargin",
     "slug": "think-margin",
-    "version": "7.0.0",
+    "version": "8.0.0",
     "privacy": "public",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "config": {
@@ -26,14 +24,14 @@
       "bundleIdentifier": "com.sensoApps.thinkMargin"
     },
     "android": {
-      "permissions" : [],
+      "permissions": [],
       "icon": "./assets/icon-android.png",
       "softwareKeyboardLayoutMode": "pan",
       "config": {
         "googleMobileAdsAppId": "{{AD_UNIT_ID_ANDROID}}"
       },
       "package": "com.sensoapps.asenousy.thinkmargin",
-      "versionCode": 7,
+      "versionCode": 8,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.sensoapps.asenousy.thinkmargin"
     }
   }

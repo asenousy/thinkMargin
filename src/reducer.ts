@@ -1,7 +1,7 @@
-import { locale } from "expo-localization";
+import { digitGroupingSeparator, decimalSeparator } from "expo-localization";
 import { Action, ActionTypes } from "./actions";
 import { SegmentName } from "./components/SegmentedInput";
-import { LocaleParser } from "./helpers";
+import { LocaleParser, LocaleFormatter } from "./helpers";
 
 export type Segment = {
   [key in SegmentName]?: number;
@@ -24,20 +24,8 @@ export type StoreState = {
   };
 };
 
-const parser = LocaleParser(locale);
-
-export function format(
-  figure: number,
-  percentage: boolean = false,
-  useGrouping: boolean = true
-) {
-  if (Number.isNaN(figure)) return percentage ? "0" : "0.00";
-  return figure.toLocaleString(locale, {
-    minimumFractionDigits: percentage ? 0 : 2,
-    maximumFractionDigits: 2,
-    useGrouping,
-  });
-}
+const parser = LocaleParser(digitGroupingSeparator, decimalSeparator);
+const fomatter = LocaleFormatter(digitGroupingSeparator, decimalSeparator);
 
 export function numberify(figures: Figure): { [key: string]: number } {
   return Object.entries(figures).reduce(
@@ -93,7 +81,7 @@ export function reducer(state: StoreState, { type, payload }: Action) {
         ...state,
         figures: {
           ...state.figures,
-          [payload]: figure === 0 ? "" : format(figure, true, false),
+          [payload]: figure === 0 ? "" : fomatter(figure, true, false),
         },
       };
     }
@@ -103,8 +91,8 @@ export function reducer(state: StoreState, { type, payload }: Action) {
         ...state,
         figures: {
           ...state.figures,
-          [payload]: format(
-            state.figures[payload],
+          [payload]: fomatter(
+            parser(state.figures[payload]),
             payload === "vat" || payload === "margin"
           ),
         },
@@ -125,12 +113,12 @@ export function reducer(state: StoreState, { type, payload }: Action) {
       return {
         ...state,
         figures: {
-          vat: format(vat, true),
-          cost: format(cost),
-          margin: format(margin, true),
-          profit: format(profit),
-          priceExcVAT: format(priceExcVAT),
-          priceIncVAT: format(priceIncVAT),
+          vat: fomatter(vat, true),
+          cost: fomatter(cost),
+          margin: fomatter(margin, true),
+          profit: fomatter(profit),
+          priceExcVAT: fomatter(priceExcVAT),
+          priceIncVAT: fomatter(priceIncVAT),
         },
       };
     }
@@ -149,12 +137,12 @@ export function reducer(state: StoreState, { type, payload }: Action) {
       return {
         ...state,
         figures: {
-          vat: format(vat, true),
-          cost: format(cost),
-          priceExcVAT: format(priceExcVAT),
-          priceIncVAT: format(priceIncVAT),
-          margin: format(margin, true),
-          profit: format(profit),
+          vat: fomatter(vat, true),
+          cost: fomatter(cost),
+          priceExcVAT: fomatter(priceExcVAT),
+          priceIncVAT: fomatter(priceIncVAT),
+          margin: fomatter(margin, true),
+          profit: fomatter(profit),
         },
       };
     }
@@ -179,12 +167,12 @@ export function reducer(state: StoreState, { type, payload }: Action) {
       return {
         ...state,
         figures: {
-          vat: format(vat, true),
-          priceExcVAT: format(priceExcVAT),
-          priceIncVAT: format(priceIncVAT),
-          margin: format(margin, true),
-          profit: format(profit),
-          cost: format(cost),
+          vat: fomatter(vat, true),
+          priceExcVAT: fomatter(priceExcVAT),
+          priceIncVAT: fomatter(priceIncVAT),
+          margin: fomatter(margin, true),
+          profit: fomatter(profit),
+          cost: fomatter(cost),
         },
       };
     }
